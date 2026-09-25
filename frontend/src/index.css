@@ -1,0 +1,50 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #1f2937;
+  background: #f8fafc;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+main {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+  max-width: 420px;
+}
+
+form div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+input {
+  padding: 0.7rem;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.7rem 1rem;
+}
