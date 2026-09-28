@@ -1,59 +1,99 @@
 <?php
 
-use Illuminate\Auth\Access\AuthorizationException;
+use App\Support\ApiResponse;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 
-return Application::configure(basePath: dirname(__DIR__))
+return Application::configure(
+    basePath: dirname(__DIR__)
+)
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
+        api: __DIR__ . '/../routes/api.php',
+        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
+
+    /*
+    |--------------------------------------------------------------------------
+    | P8 - Broadcasting / Private Channel Authorization
+    |--------------------------------------------------------------------------
+    |
+    | Creates:
+    |
+    | POST /api/broadcasting/auth
+    |
+    | Authentication is handled using Sanctum.
+    |
+    */
+
+    ->withBroadcasting(
+        __DIR__ . '/../routes/channels.php',
+        [
+            'prefix' => 'api',
+
+            'middleware' => [
+                'api',
+                'auth:sanctum',
+            ],
+        ],
+    )
+
+    ->withMiddleware(function (
+        Middleware $middleware
+    ): void {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Sanctum SPA Authentication
+        |--------------------------------------------------------------------------
+        |
+        | Allows React running on localhost:5173 to use Laravel Sanctum
+        | cookie-based authentication.
+        |
+        */
+
         $middleware->statefulApi();
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->render(function (
-            AuthenticationException $e,
-            $request
-        ) {
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => $e->getMessage() ?: 'Unauthenticated.',
-                ], Response::HTTP_UNAUTHORIZED);
-            }
-        });
+
+    ->withExceptions(function (
+        Exceptions $exceptions
+    ): void {
+
+        /*
+        |--------------------------------------------------------------------------
+        | API Authentication Errors
+        |--------------------------------------------------------------------------
+        |
+        | Ensures unauthenticated API requests follow CricIntel's standard
+        | ApiResponse structure:
+        |
+        | {
+        |     "success": false,
+        |     "message": "Unauthenticated."
+        | }
+        |
+        */
 
         $exceptions->render(function (
-            AuthorizationException $e,
-            $request
+            AuthenticationException $exception,
+            Request $request
         ) {
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'You are not authorized to perform this action.',
-                ], Response::HTTP_FORBIDDEN);
+            if (
+                $request->is('api/*') ||
+                $request->expectsJson()
+            ) {
+                return ApiResponse::error(
+                    'Unauthenticated.',
+                    401
+                );
             }
-        });
 
-        $exceptions->render(function (
-            ValidationException $e,
-            $request
-        ) {
-            if ($request->expectsJson()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Validation failed.',
-                    'errors' => $e->errors(),
-                ], Response::HTTP_UNPROCESSABLE_ENTITY);
-            }
+            return null;
         });
     })
+
     ->create();

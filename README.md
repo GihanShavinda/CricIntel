@@ -1,184 +1,130 @@
-# CricIntel AI — P1 Foundation
+# CricIntel AI — Milestone 8 (P8)
+## Real-Time Match Centre with Laravel Reverb
 
-This ZIP contains the source files for Milestone 1:
+P8 adds real-time match updates over Laravel Reverb / WebSockets.
 
-- Laravel REST API foundation
-- PostgreSQL configuration
-- Redis configuration
-- Laravel Sanctum SPA authentication
-- Registration / login / logout / current-user endpoint
-- Database-backed RBAC roles
-- Laravel Gates
-- React + TypeScript + Vite auth pages
-- AuthProvider
-- Protected routes
-- Role-aware navigation
-- Backend tests
-- Frontend smoke test
+No AI is used.
 
-No cricket-domain entities are included.
-
-## Important
-
-Generated dependency folders are intentionally excluded:
-
-- `backend/vendor`
-- `frontend/node_modules`
-
-After extracting, install dependencies locally.
-
-## Recommended local URLs
-
-- Backend: http://localhost:8000
-- Frontend: http://localhost:5173
-
-Use `localhost` consistently for both applications to avoid Sanctum cookie problems.
-
----
-
-## Backend setup
-
-Create a normal Laravel 12 project first if you are starting from an empty machine:
-
-```powershell
-composer create-project laravel/laravel backend "^12.0"
-cd backend
-php artisan install:api
-composer require predis/predis
-php artisan config:publish cors
-```
-
-Then merge/replace the files from this ZIP's `backend` directory into that Laravel project.
-
-Copy environment template:
-
-```powershell
-copy .env.example .env
-php artisan key:generate
-```
-
-Configure PostgreSQL credentials in `.env`.
-
-Create database:
-
-```sql
-CREATE DATABASE cricintel;
-CREATE USER cricintel_user WITH PASSWORD 'CHANGE_THIS_PASSWORD';
-GRANT ALL PRIVILEGES ON DATABASE cricintel TO cricintel_user;
-```
-
-If necessary:
-
-```sql
-\c cricintel
-GRANT ALL ON SCHEMA public TO cricintel_user;
-ALTER SCHEMA public OWNER TO cricintel_user;
-```
-
-Run:
-
-```powershell
-php artisan migrate
-php artisan db:seed
-php artisan test
-php artisan serve
-```
-
-## Redis on Windows / WSL
-
-```bash
-sudo apt update
-sudo apt install redis-server
-sudo service redis-server start
-redis-cli ping
-```
-
-Expected:
+## Architecture
 
 ```text
-PONG
+P5 scoring request
+      ↓
+MatchScoringService
+      ↓
+database transaction commits
+      ↓
+DeliveryRecorded / WicketRecorded /
+InningsCompleted / MatchCompleted
+      ↓
+Laravel Broadcasting
+      ↓
+Reverb
+      ↓
+private-match.{matchId}
+      ↓
+Laravel Echo
+      ↓
+React Live Match Centre
 ```
 
-## Frontend setup
+Every event contains:
+- event_id: UUID
+- event_name
+- match_id
+- emitted_at
+- deterministic live match snapshot
 
-Create a React TypeScript Vite project if needed:
+The React client keeps a bounded event-ID set to reject duplicates.
+
+## Install Reverb / broadcasting
+
+Run in backend:
 
 ```powershell
-npm create vite@latest frontend -- --template react-ts
-cd frontend
-npm install
-npm install axios react-router-dom @tanstack/react-query react-hook-form
-npm install -D vitest jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event
+cd F:\My_Projects\CricIntel\cricintel\backend
+
+php artisan install:broadcasting
 ```
 
-Then merge/replace the files from this ZIP's `frontend` directory.
+When prompted, select Laravel Reverb.
 
-Run:
-
-```powershell
-npm install
-npm run dev
-```
-
-Tests:
+If Reverb is not installed by the installer:
 
 ```powershell
-npm run test:run
-```
-
-Build check:
-
-```powershell
-npm run build
-```
-
-## Create development administrator
-
-```powershell
-cd backend
-php artisan tinker
+composer require laravel/reverb
+php artisan reverb:install
 ```
 
 Then:
 
-```php
-use App\Models\User;
-use App\Models\Role;
-
-$admin = User::create([
-    'name' => 'CricIntel Administrator',
-    'email' => 'admin@cricintel.local',
-    'password' => 'AdminPassword123',
-]);
-
-$role = Role::where('name', 'Administrator')->firstOrFail();
-$admin->roles()->attach($role);
+```powershell
+php artisan optimize:clear
+php artisan migrate
 ```
 
-Development-only credentials:
+## Frontend dependencies
 
-- Email: `admin@cricintel.local`
-- Password: `AdminPassword123`
+```powershell
+cd F:\My_Projects\CricIntel\cricintel\frontend
 
-Change them before any real deployment.
+npm install laravel-echo pusher-js
+```
 
-## API routes
+## Local development terminals
 
-- POST `/api/v1/auth/register`
-- POST `/api/v1/auth/login`
-- POST `/api/v1/auth/logout`
-- GET `/api/v1/auth/me`
-- GET `/api/v1/admin/ping`
+Terminal 1:
 
-Before login/register from a browser client, request:
+```powershell
+cd F:\My_Projects\CricIntel\cricintel\backend
+php artisan serve --host=localhost --port=8000
+```
 
-- GET `/sanctum/csrf-cookie`
+Terminal 2:
 
-## P1 roles
+```powershell
+cd F:\My_Projects\CricIntel\cricintel\backend
+php artisan reverb:start --host=0.0.0.0 --port=8080
+```
 
-- Administrator
-- Coach
-- Analyst
-- Selector
-- Team Manager
-- Player
+Terminal 3:
+
+```powershell
+cd F:\My_Projects\CricIntel\cricintel\backend
+php artisan queue:work
+```
+
+Terminal 4:
+
+```powershell
+cd F:\My_Projects\CricIntel\cricintel\frontend
+npm run dev
+```
+
+## Redis
+
+Redis is optional for one local Reverb process.
+
+Your existing local CricIntel project can keep:
+
+```env
+CACHE_STORE=file
+QUEUE_CONNECTION=database
+```
+
+When Redis is available without Docker, you may use:
+
+```env
+CACHE_STORE=redis
+QUEUE_CONNECTION=redis
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+```
+
+For multiple Reverb servers, enable Reverb scaling and Redis according to Laravel Reverb configuration.
+
+## Live route
+
+```text
+/organizations/{organizationId}/matches/{matchId}/live
+```

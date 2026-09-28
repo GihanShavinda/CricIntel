@@ -14,17 +14,10 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'status',
-        'last_login_at',
+        'name','email','password','status','last_login_at',
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password','remember_token'];
 
     protected function casts(): array
     {
@@ -38,7 +31,13 @@ class User extends Authenticatable
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class)
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function organizations(): BelongsToMany
+    {
+        return $this->belongsToMany(Organization::class, 'organization_user')
+            ->withPivot(['title','status'])
             ->withTimestamps();
     }
 
@@ -48,22 +47,23 @@ class User extends Authenticatable
             return $this->roles->contains('name', $role);
         }
 
-        return $this->roles()
-            ->where('name', $role)
-            ->exists();
+        return $this->roles()->where('name', $role)->exists();
     }
 
     public function hasAnyRole(array $roles): bool
     {
         if ($this->relationLoaded('roles')) {
-            return $this->roles
-                ->pluck('name')
-                ->intersect($roles)
-                ->isNotEmpty();
+            return $this->roles->pluck('name')->intersect($roles)->isNotEmpty();
         }
 
-        return $this->roles()
-            ->whereIn('name', $roles)
+        return $this->roles()->whereIn('name', $roles)->exists();
+    }
+
+    public function belongsToOrganization(int $organizationId): bool
+    {
+        return $this->organizations()
+            ->where('organizations.id', $organizationId)
+            ->wherePivot('status', 'active')
             ->exists();
     }
 }

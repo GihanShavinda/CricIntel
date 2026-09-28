@@ -1,0 +1,3 @@
+Add this line to the bottom of frontend/src/index.css:
+
+@import './p4-competition.css';

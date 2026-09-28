@@ -1,61 +1,105 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
-import {
-  Link,
-  useNavigate,
-} from 'react-router-dom';
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from "../auth/AuthContext";
 
-export function AppLayout({
-  children,
-}: {
+type Props = {
   children: ReactNode;
-}) {
-  const {
-    user,
-    logout,
-    hasRole,
-  } = useAuth();
+};
+
+export function AppLayout({ children }: Props) {
+  const { user, logout } = useAuth();
 
   const navigate = useNavigate();
 
+  const roles = user?.roles ?? [];
+
+  const isAdministrator = roles.includes("Administrator");
+
   const handleLogout = async () => {
-    await logout();
-    navigate('/login');
+    try {
+      await logout();
+
+      navigate("/login", {
+        replace: true,
+      });
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   return (
-    <>
-      <header>
-        <strong>CricIntel AI</strong>
+    <div className="app-shell">
+      <header className="topbar">
+        <div className="topbar-inner">
+          {/* Brand */}
+          <Link to="/dashboard" className="brand">
+            <div className="brand-logo">CI</div>
 
-        <nav>
-          <Link to="/dashboard">
-            Dashboard
+            <div className="brand-text">
+              <strong>CricIntel</strong>
+
+              <span>AI</span>
+            </div>
           </Link>
 
-          {' '}
+          {/* Main navigation */}
+          <nav className="main-navigation">
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Dashboard
+            </NavLink>
 
-          {hasRole('Administrator') && (
-            <Link to="/admin">
-              Administration
-            </Link>
-          )}
-        </nav>
+            <NavLink
+              to="/organizations"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Organizations
+            </NavLink>
 
-        <div>
-          {user?.name}
-          {' — '}
-          {user?.roles.join(', ')}
-          {' '}
-          <button onClick={handleLogout}>
-            Logout
-          </button>
+            {isAdministrator && (
+              <NavLink
+                to="/admin"
+                className={({ isActive }) =>
+                  isActive ? "nav-link active" : "nav-link"
+                }
+              >
+                Administration
+              </NavLink>
+            )}
+          </nav>
+
+          {/* Right side */}
+          <div className="topbar-user">
+            <div className="user-avatar">
+              {user?.name?.charAt(0)?.toUpperCase() ?? "U"}
+            </div>
+
+            <div className="user-info">
+              <strong>{user?.name ?? "CricIntel User"}</strong>
+
+              <span>{roles.length ? roles.join(", ") : "User"}</span>
+            </div>
+
+            <button
+              type="button"
+              className="logout-button"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </header>
 
-      <main>{children}</main>
-    </>
+      <main className="main-content">{children}</main>
+    </div>
   );
 }
