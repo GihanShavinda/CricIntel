@@ -5,16 +5,17 @@ use App\Http\Controllers\Api\V1\AnalyticsController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ClubController;
 use App\Http\Controllers\Api\V1\FixtureController;
+use App\Http\Controllers\Api\V1\LiveMatchController;
 use App\Http\Controllers\Api\V1\MatchController;
 use App\Http\Controllers\Api\V1\OrganizationController;
 use App\Http\Controllers\Api\V1\PlayerController;
 use App\Http\Controllers\Api\V1\SeasonController;
+use App\Http\Controllers\Api\V1\SelectionController;
 use App\Http\Controllers\Api\V1\StatisticsController;
 use App\Http\Controllers\Api\V1\TeamController;
 use App\Http\Controllers\Api\V1\TournamentController;
 use App\Http\Controllers\Api\V1\VenueController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\LiveMatchController;
 
 Route::prefix('v1')->group(function () {
     /*
@@ -205,9 +206,109 @@ Route::prefix('v1')->group(function () {
             );
         });
 
+        /*
+        |--------------------------------------------------------------------------
+        | P8 - Live Match Centre
+        |--------------------------------------------------------------------------
+        */
         Route::get(
             '/organizations/{organization}/matches/{match}/live',
             [LiveMatchController::class, 'show']
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | P9 - Tournament Squad
+        |--------------------------------------------------------------------------
+        */
+        Route::get(
+            '/organizations/{organization}/tournaments/{tournament}/teams/{team}/squad',
+            [SelectionController::class, 'getTournamentSquad']
+        );
+
+        Route::post(
+            '/organizations/{organization}/tournaments/{tournament}/teams/{team}/squad',
+            [SelectionController::class, 'createTournamentSquad']
+        );
+
+        Route::put(
+            '/organizations/{organization}/squads/{squad}/players',
+            [SelectionController::class, 'syncTournamentPlayers']
+        );
+
+        Route::post(
+            '/organizations/{organization}/squads/{squad}/finalize',
+            [SelectionController::class, 'finalizeTournamentSquad']
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | P9 - Match Squad
+        |--------------------------------------------------------------------------
+        */
+        Route::get(
+            '/organizations/{organization}/matches/{match}/teams/{team}/squad',
+            [SelectionController::class, 'getMatchSquad']
+        );
+
+        Route::post(
+            '/organizations/{organization}/matches/{match}/teams/{team}/squad',
+            [SelectionController::class, 'saveMatchSquad']
+        );
+
+        Route::get(
+            '/organizations/{organization}/matches/{match}/teams/{team}/selection/candidates',
+            [SelectionController::class, 'candidates']
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | P9 - Playing XI
+        |--------------------------------------------------------------------------
+        */
+        Route::put(
+            '/organizations/{organization}/matches/{match}/teams/{team}/playing-xi',
+            [SelectionController::class, 'savePlayingXi']
+        );
+
+        Route::post(
+            '/organizations/{organization}/matches/{match}/teams/{team}/playing-xi/confirm',
+            [SelectionController::class, 'confirmPlayingXi']
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | P9 - Batting Order
+        |--------------------------------------------------------------------------
+        */
+        Route::put(
+            '/organizations/{organization}/matches/{match}/teams/{team}/batting-order',
+            [SelectionController::class, 'saveBattingOrder']
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | P9 - Bowling Assignments
+        |--------------------------------------------------------------------------
+        */
+        Route::put(
+            '/organizations/{organization}/matches/{match}/teams/{team}/bowling-assignments',
+            [SelectionController::class, 'saveBowlingAssignments']
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | P9 - Selection Decisions
+        |--------------------------------------------------------------------------
+        */
+        Route::get(
+            '/organizations/{organization}/matches/{match}/teams/{team}/selection-decisions',
+            [SelectionController::class, 'decisions']
+        );
+
+        Route::post(
+            '/organizations/{organization}/matches/{match}/teams/{team}/selection-decisions',
+            [SelectionController::class, 'saveDecision']
         );
     });
 

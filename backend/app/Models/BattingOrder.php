@@ -1,0 +1,3 @@
+<?php
+namespace App\Models; use Illuminate\Database\Eloquent\Model; use Illuminate\Database\Eloquent\Relations\BelongsTo;
+class BattingOrder extends Model { protected $fillable=['match_squad_id','player_id','position']; protected $casts=['position'=>'integer']; public function matchSquad():BelongsTo{return $this->belongsTo(MatchSquad::class);} public function player():BelongsTo{return $this->belongsTo(Player::class);} }

@@ -1,0 +1,3 @@
+<?php
+namespace App\Http\Requests\Selection; use Illuminate\Foundation\Http\FormRequest;
+class CreateMatchSquadRequest extends FormRequest { public function authorize():bool{return true;} public function rules():array{return ['tournament_squad_id'=>['nullable','integer','exists:squads,id'],'players'=>['required','array','min:1'],'players.*.player_id'=>['required','integer','distinct','exists:players,id'],'players.*.override'=>['nullable','boolean'],'players.*.override_reason'=>['nullable','string','max:1000'],'players.*.reason'=>['nullable','string','max:2000']];} }

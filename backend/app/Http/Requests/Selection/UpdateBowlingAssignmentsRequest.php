@@ -1,0 +1,3 @@
+<?php
+namespace App\Http\Requests\Selection; use Illuminate\Foundation\Http\FormRequest; use Illuminate\Validation\Rule;
+class UpdateBowlingAssignmentsRequest extends FormRequest { public function authorize():bool{return true;} public function rules():array{return ['assignments'=>['required','array'],'assignments.*.player_id'=>['required','integer','exists:players,id'],'assignments.*.phase'=>['required',Rule::in(['Powerplay','Middle','Death'])],'assignments.*.priority'=>['nullable','integer','min:1','max:20'],'assignments.*.notes'=>['nullable','string','max:1000']];} }

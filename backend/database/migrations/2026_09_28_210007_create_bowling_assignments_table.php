@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
+return new class extends Migration { public function up(): void { Schema::create('bowling_assignments', function(Blueprint $t){$t->id();$t->foreignId('match_squad_id')->constrained()->cascadeOnDelete();$t->foreignId('player_id')->constrained()->cascadeOnDelete();$t->string('phase');$t->unsignedTinyInteger('priority')->default(1);$t->text('notes')->nullable();$t->timestamps();$t->unique(['match_squad_id','player_id','phase']);}); } public function down(): void { Schema::dropIfExists('bowling_assignments'); } };

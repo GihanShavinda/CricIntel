@@ -1,0 +1,3 @@
+<?php
+namespace App\Services\Selection; use App\Models\{CricketMatch,Player};
+class SelectionContextService { public function forPlayer(Player $player,CricketMatch $match):array{return ['availability'=>['status'=>app(SelectionEligibilityService::class)->availabilityStatus($player,$match)],'recent_form'=>$this->recentForm($player),'venue_record'=>null,'opposition_record'=>null];} private function recentForm(Player $player):?array { foreach(['App\\Services\\PlayerStatisticsService','App\\Services\\Statistics\\PlayerStatisticsService'] as $class){if(app()->bound($class)){ $s=app($class); if(method_exists($s,'recentForm'))return $s->recentForm($player->id,5); }} return null; } }

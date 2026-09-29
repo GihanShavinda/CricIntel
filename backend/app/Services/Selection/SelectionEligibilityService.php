@@ -1,0 +1,10 @@
+<?php
+namespace App\Services\Selection;
+use App\Models\{CricketMatch,MatchSquad,Player,Squad,Team}; use Illuminate\Validation\ValidationException;
+class SelectionEligibilityService {
+ public function assertMatchTeam(CricketMatch $match,Team $team):void{$f=$match->fixture()->first(); if(!$f||!in_array((int)$team->id,[(int)$f->home_team_id,(int)$f->away_team_id],true))throw ValidationException::withMessages(['team_id'=>'Team is not part of this match fixture.']);}
+ public function assertPlayerInTournamentSquad(?Squad $squad,int $playerId):void{if(!$squad)return; $ok=$squad->players()->where('player_id',$playerId)->whereNull('removed_at')->where('status','!=','Withdrawn')->exists(); if(!$ok)throw ValidationException::withMessages(['player_id'=>'Player is not part of the tournament squad.']);}
+ public function availabilityStatus(Player $player,CricketMatch $match):string { if(!method_exists($player,'availability'))return 'Unknown'; $record=$player->availability()->latest('id')->first(); return $record?->status??'Unknown'; }
+ public function assertAvailability(Player $player,CricketMatch $match,bool $override,?string $reason):array{$s=$this->availabilityStatus($player,$match); if($s==='Unavailable'&&!$override)throw ValidationException::withMessages(['player_id'=>'Player is unavailable for this match.']); if($s==='Unavailable'&&$override&&blank($reason))throw ValidationException::withMessages(['override_reason'=>'Override reason is required.']); return ['status'=>$s,'override_used'=>$s==='Unavailable'&&$override];}
+ public function assertPlayingXiConfirmable(MatchSquad $ms):void{$e=$ms->playingXi()->get(); if($e->count()!==11)throw ValidationException::withMessages(['players'=>'A confirmed Playing XI must contain exactly 11 players.']); if($e->where('is_captain',true)->count()!==1)throw ValidationException::withMessages(['captain'=>'Exactly one captain is required.']); if($e->where('is_wicketkeeper',true)->count()!==1)throw ValidationException::withMessages(['wicketkeeper'=>'Exactly one wicketkeeper is required.']);}
+}

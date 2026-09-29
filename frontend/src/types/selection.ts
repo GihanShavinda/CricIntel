@@ -1,0 +1,10 @@
+export type AvailabilityStatus='Available'|'Unavailable'|'Conditional'|'Unknown';
+export interface SelectionPlayer{id:number;name?:string|null;display_name?:string|null;first_name?:string|null;last_name?:string|null;playing_role?:string|null}
+export interface TournamentSquad{id:number;organization_id:number;tournament_id:number;team_id:number;name:string;min_players:number;max_players:number;status:'Draft'|'Finalized'|'Locked';players:Array<{id:number;player_id:number;status:string;player?:SelectionPlayer}>}
+export interface MatchSquadPlayer{id:number;player_id:number;selection_status:string;override_used:boolean;override_reason?:string|null;player?:SelectionPlayer}
+export interface PlayingXiEntry{id?:number;player_id:number;is_captain:boolean;is_wicketkeeper:boolean;reason?:string|null;player?:SelectionPlayer}
+export interface BattingOrderEntry{id?:number;player_id:number;position:number;player?:SelectionPlayer}
+export type BowlingPhase='Powerplay'|'Middle'|'Death';
+export interface BowlingAssignment{id?:number;player_id:number;phase:BowlingPhase;priority:number;notes?:string|null;player?:SelectionPlayer}
+export interface MatchSquad{id:number;organization_id:number;match_id:number;team_id:number;squad_id?:number|null;status:'Draft'|'Confirmed'|'Locked';players:MatchSquadPlayer[];playing_xi?:PlayingXiEntry[];batting_order?:BattingOrderEntry[];bowling_assignments?:BowlingAssignment[]}
+export interface SelectionCandidate{player:SelectionPlayer;availability:{status:AvailabilityStatus};recent_form?:Record<string,unknown>|null;venue_record?:Record<string,unknown>|null;opposition_record?:Record<string,unknown>|null}

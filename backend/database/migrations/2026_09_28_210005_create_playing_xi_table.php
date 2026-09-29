@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
+return new class extends Migration { public function up(): void { Schema::create('playing_xi', function(Blueprint $t){$t->id();$t->foreignId('match_squad_id')->constrained()->cascadeOnDelete();$t->foreignId('player_id')->constrained()->cascadeOnDelete();$t->boolean('is_captain')->default(false);$t->boolean('is_wicketkeeper')->default(false);$t->foreignId('selected_by')->nullable()->constrained('users')->nullOnDelete();$t->timestamps();$t->unique(['match_squad_id','player_id']);}); } public function down(): void { Schema::dropIfExists('playing_xi'); } };

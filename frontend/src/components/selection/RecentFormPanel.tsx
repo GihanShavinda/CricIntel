@@ -1,0 +1,1 @@
+export function RecentFormPanel({form}:{form?:Record<string,unknown>|null}){if(!form)return <div className="selection-muted">Recent form unavailable</div>;return <div className="recent-form-panel">{Object.entries(form).slice(0,6).map(([k,v])=><div key={k} className="recent-form-stat"><span>{k.replaceAll('_',' ')}</span><strong>{String(v??'—')}</strong></div>)}</div>;}

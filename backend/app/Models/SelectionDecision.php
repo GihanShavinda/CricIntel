@@ -1,0 +1,3 @@
+<?php
+namespace App\Models; use Illuminate\Database\Eloquent\Model; use Illuminate\Database\Eloquent\Relations\BelongsTo;
+class SelectionDecision extends Model { protected $fillable=['organization_id','match_id','team_id','player_id','decision_type','decision','reason','context','override_used','created_by']; protected $casts=['context'=>'array','override_used'=>'boolean']; public function player():BelongsTo{return $this->belongsTo(Player::class);} }

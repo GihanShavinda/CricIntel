@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Team extends Model
 {
@@ -25,7 +26,9 @@ class Team extends Model
 
     protected function casts(): array
     {
-        return ['format_preferences' => 'array'];
+        return [
+            'format_preferences' => 'array',
+        ];
     }
 
     public function club(): BelongsTo
@@ -49,5 +52,26 @@ class Team extends Model
                 'is_current',
             ])
             ->withTimestamps();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | P9 - Selection Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    public function squads(): HasMany
+    {
+        return $this->hasMany(Squad::class, 'team_id');
+    }
+
+    public function matchSquads(): HasMany
+    {
+        return $this->hasMany(MatchSquad::class, 'team_id');
+    }
+
+    public function selectionDecisions(): HasMany
+    {
+        return $this->hasMany(SelectionDecision::class, 'team_id');
     }
 }

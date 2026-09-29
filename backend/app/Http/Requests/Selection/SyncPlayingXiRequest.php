@@ -1,0 +1,3 @@
+<?php
+namespace App\Http\Requests\Selection; use Illuminate\Foundation\Http\FormRequest;
+class SyncPlayingXiRequest extends FormRequest { public function authorize():bool{return true;} public function rules():array{return ['players'=>['required','array','max:11'],'players.*.player_id'=>['required','integer','distinct','exists:players,id'],'players.*.is_captain'=>['required','boolean'],'players.*.is_wicketkeeper'=>['required','boolean'],'players.*.reason'=>['nullable','string','max:2000']];} }

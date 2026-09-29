@@ -1,0 +1,1 @@
+import type{AvailabilityStatus}from'../../types/selection'; export function AvailabilityBadge({status}:{status:AvailabilityStatus}){return <span className={`selection-availability status-${status.toLowerCase()}`}>{status}</span>;}

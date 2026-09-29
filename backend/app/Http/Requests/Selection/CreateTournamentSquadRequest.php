@@ -1,0 +1,3 @@
+<?php
+namespace App\Http\Requests\Selection; use Illuminate\Foundation\Http\FormRequest;
+class CreateTournamentSquadRequest extends FormRequest { public function authorize():bool{return true;} public function rules():array{return ['name'=>['required','string','max:120'],'min_players'=>['nullable','integer','min:1','max:30'],'max_players'=>['nullable','integer','min:1','max:30','gte:min_players']];} }

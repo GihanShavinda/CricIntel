@@ -1,54 +1,34 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { ProtectedRoute } from "./auth/ProtectedRoute";
-
 import { RoleRoute } from "./auth/RoleRoute";
 
 import { AdminPage } from "./pages/AdminPage";
-
 import { AnalyticsDashboardPage } from "./pages/AnalyticsDashboardPage";
-
 import { ClubsPage } from "./pages/ClubsPage";
-
 import { DashboardPage } from "./pages/DashboardPage";
-
 import { FixturesPage } from "./pages/FixturesPage";
-
-import { LoginPage } from "./pages/LoginPage";
-
-import { MatchOperatorPage } from "./pages/MatchOperatorPage";
-
-import { MatchScorecardPage } from "./pages/MatchScorecardPage";
-
-import { MatchesPage } from "./pages/MatchesPage";
-
-import { OrganizationDetailsPage } from "./pages/OrganizationDetailsPage";
-
-import { OrganizationsPage } from "./pages/OrganizationsPage";
-
-import { PlayerComparisonPage } from "./pages/PlayerComparisonPage";
-
-import { PlayerCreatePage } from "./pages/PlayerCreatePage";
-
-import { PlayerEditPage } from "./pages/PlayerEditPage";
-
-import { PlayerProfilePage } from "./pages/PlayerProfilePage";
-
-import { PlayersPage } from "./pages/PlayersPage";
-
-import { RegisterPage } from "./pages/RegisterPage";
-
-import { SeasonsPage } from "./pages/SeasonsPage";
-
-import { TeamsPage } from "./pages/TeamsPage";
-
-import { TournamentDetailsPage } from "./pages/TournamentDetailsPage";
-
-import { TournamentsPage } from "./pages/TournamentsPage";
-
-import { VenuesPage } from "./pages/VenuesPage";
-
 import { LiveMatchCentrePage } from "./pages/LiveMatchCentrePage";
+import { LoginPage } from "./pages/LoginPage";
+import { MatchOperatorPage } from "./pages/MatchOperatorPage";
+import { MatchScorecardPage } from "./pages/MatchScorecardPage";
+import { MatchSquadPage } from "./pages/MatchSquadPage";
+import { MatchesPage } from "./pages/MatchesPage";
+import { OrganizationDetailsPage } from "./pages/OrganizationDetailsPage";
+import { OrganizationsPage } from "./pages/OrganizationsPage";
+import { PlayerComparisonPage } from "./pages/PlayerComparisonPage";
+import { PlayerCreatePage } from "./pages/PlayerCreatePage";
+import { PlayerEditPage } from "./pages/PlayerEditPage";
+import { PlayerProfilePage } from "./pages/PlayerProfilePage";
+import { PlayersPage } from "./pages/PlayersPage";
+import { PlayingXiPage } from "./pages/PlayingXiPage";
+import { RegisterPage } from "./pages/RegisterPage";
+import { SeasonsPage } from "./pages/SeasonsPage";
+import { TeamsPage } from "./pages/TeamsPage";
+import { TournamentDetailsPage } from "./pages/TournamentDetailsPage";
+import { TournamentSquadPage } from "./pages/TournamentSquadPage";
+import { TournamentsPage } from "./pages/TournamentsPage";
+import { VenuesPage } from "./pages/VenuesPage";
 
 export default function App() {
   return (
@@ -56,7 +36,6 @@ export default function App() {
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
       <Route path="/login" element={<LoginPage />} />
-
       <Route path="/register" element={<RegisterPage />} />
 
       <Route
@@ -176,6 +155,20 @@ export default function App() {
         }
       />
 
+      {/*
+      |--------------------------------------------------------------------------
+      | P9 - Tournament Squad
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/tournaments/:tournamentId/teams/:teamId/squad"
+        element={
+          <ProtectedRoute>
+            <TournamentSquadPage />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/organizations/:organizationId/fixtures"
         element={
@@ -194,6 +187,34 @@ export default function App() {
         }
       />
 
+      {/*
+      |--------------------------------------------------------------------------
+      | P9 - Match Squad
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/matches/:matchId/teams/:teamId/squad"
+        element={
+          <ProtectedRoute>
+            <MatchSquadPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P9 - Playing XI / Batting Order / Bowling Roles
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/matches/:matchId/teams/:teamId/playing-xi"
+        element={
+          <ProtectedRoute>
+            <PlayingXiPage />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/organizations/:organizationId/matches/:matchId/operator"
         element={
@@ -208,6 +229,15 @@ export default function App() {
         element={
           <ProtectedRoute>
             <MatchScorecardPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/organizations/:organizationId/matches/:matchId/live"
+        element={
+          <ProtectedRoute>
+            <LiveMatchCentrePage />
           </ProtectedRoute>
         }
       />
@@ -237,15 +267,6 @@ export default function App() {
             <RoleRoute allowedRoles={["Administrator"]}>
               <AdminPage />
             </RoleRoute>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/organizations/:organizationId/matches/:matchId/live"
-        element={
-          <ProtectedRoute>
-            <LiveMatchCentrePage />
           </ProtectedRoute>
         }
       />

@@ -1,0 +1,3 @@
+<?php
+namespace App\Http\Requests\Selection; use Illuminate\Foundation\Http\FormRequest;
+class UpdateBattingOrderRequest extends FormRequest { public function authorize():bool{return true;} public function rules():array{return ['players'=>['required','array','size:11'],'players.*.player_id'=>['required','integer','distinct','exists:players,id'],'players.*.position'=>['required','integer','min:1','max:11','distinct']];} }

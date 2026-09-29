@@ -1,0 +1,3 @@
+<?php
+namespace App\Models; use Illuminate\Database\Eloquent\Model; use Illuminate\Database\Eloquent\Relations\BelongsTo;
+class PlayingXi extends Model { protected $table='playing_xi'; protected $fillable=['match_squad_id','player_id','is_captain','is_wicketkeeper','selected_by']; protected $casts=['is_captain'=>'boolean','is_wicketkeeper'=>'boolean']; public function matchSquad():BelongsTo{return $this->belongsTo(MatchSquad::class);} public function player():BelongsTo{return $this->belongsTo(Player::class);} }
