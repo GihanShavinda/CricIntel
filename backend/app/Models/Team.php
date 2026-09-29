@@ -74,4 +74,17 @@ class Team extends Model
     {
         return $this->hasMany(SelectionDecision::class, 'team_id');
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | P10 - Training Sessions
+    |--------------------------------------------------------------------------
+    */
+
+    public function trainingSessions(): HasMany
+    {
+        return $this->hasMany(TrainingSession::class, 'team_id');
+    }
+
 }

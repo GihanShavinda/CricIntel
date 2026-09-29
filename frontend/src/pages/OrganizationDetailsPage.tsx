@@ -204,129 +204,86 @@ export function OrganizationDetailsPage() {
             <p>
               Manage the organization,
               competition workflow,
-              live scoring, and
-              deterministic analytics.
+              live scoring, analytics,
+              training, player development,
+              scouting, and recruitment.
             </p>
           </div>
         </div>
 
         <div className="module-links">
-          <Link
-            to={
-              `/organizations/${id}/clubs`
-            }
-          >
-            <strong>
-              Clubs
-            </strong>
-            <span>
-              Manage cricket clubs
-            </span>
+          <Link to={`/organizations/${id}/clubs`}>
+            <strong>Clubs</strong>
+            <span>Manage cricket clubs</span>
           </Link>
 
-          <Link
-            to={
-              `/organizations/${id}/teams`
-            }
-          >
-            <strong>
-              Teams
-            </strong>
-            <span>
-              Manage squads and teams
-            </span>
+          <Link to={`/organizations/${id}/teams`}>
+            <strong>Teams</strong>
+            <span>Manage squads and teams</span>
           </Link>
 
-          <Link
-            to={
-              `/organizations/${id}/seasons`
-            }
-          >
-            <strong>
-              Seasons
-            </strong>
-            <span>
-              Competition periods
-            </span>
+          <Link to={`/organizations/${id}/seasons`}>
+            <strong>Seasons</strong>
+            <span>Competition periods</span>
           </Link>
 
-          <Link
-            to={
-              `/organizations/${id}/players`
-            }
-          >
-            <strong>
-              Players
-            </strong>
-            <span>
-              Profiles and membership
-            </span>
+          <Link to={`/organizations/${id}/players`}>
+            <strong>Players</strong>
+            <span>Profiles and membership</span>
           </Link>
 
-          <Link
-            to={
-              `/organizations/${id}/venues`
-            }
-          >
-            <strong>
-              Venues
-            </strong>
-            <span>
-              Grounds and locations
-            </span>
+          <Link to={`/organizations/${id}/venues`}>
+            <strong>Venues</strong>
+            <span>Grounds and locations</span>
           </Link>
 
-          <Link
-            to={
-              `/organizations/${id}/tournaments`
-            }
-          >
-            <strong>
-              Tournaments
-            </strong>
-            <span>
-              Formats and registration
-            </span>
+          <Link to={`/organizations/${id}/tournaments`}>
+            <strong>Tournaments</strong>
+            <span>Formats and registration</span>
           </Link>
 
-          <Link
-            to={
-              `/organizations/${id}/fixtures`
-            }
-          >
-            <strong>
-              Fixture Calendar
-            </strong>
-            <span>
-              Match scheduling
-            </span>
+          <Link to={`/organizations/${id}/fixtures`}>
+            <strong>Fixture Calendar</strong>
+            <span>Match scheduling</span>
           </Link>
 
-          <Link
-            to={
-              `/organizations/${id}/matches`
-            }
-          >
-            <strong>
-              Live Match Scoring
-            </strong>
-            <span>
-              Ball-by-ball operator
-            </span>
+          <Link to={`/organizations/${id}/matches`}>
+            <strong>Live Match Scoring</strong>
+            <span>Ball-by-ball operator</span>
           </Link>
 
           <Link
             className="analytics-module-link"
-            to={
-              `/organizations/${id}/analytics`
-            }
+            to={`/organizations/${id}/analytics`}
           >
-            <strong>
-              Analytics
-            </strong>
+            <strong>Analytics</strong>
             <span>
               P6 statistics,
               trends and comparisons
+            </span>
+          </Link>
+
+          <Link
+            className="training-module-link"
+            to={`/organizations/${id}/training`}
+          >
+            <strong>Training & Development</strong>
+            <span>
+              Sessions, drills,
+              attendance, fitness,
+              assessments and development
+              plans
+            </span>
+          </Link>
+
+          <Link
+            className="scouting-module-link"
+            to={`/organizations/${id}/scouting`}
+          >
+            <strong>Scouting & Recruitment</strong>
+            <span>
+              Prospects, scouting reports,
+              ratings, media and recruitment
             </span>
           </Link>
         </div>

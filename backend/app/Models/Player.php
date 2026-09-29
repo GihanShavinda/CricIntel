@@ -32,44 +32,23 @@ class Player extends Model
     protected function casts(): array
     {
         return [
-            'date_of_birth' =>
-                'date',
+            'date_of_birth' => 'date',
         ];
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Core Relationships
-    |--------------------------------------------------------------------------
-    */
-
     public function organization(): BelongsTo
     {
-        return $this->belongsTo(
-            Organization::class
-        );
+        return $this->belongsTo(Organization::class);
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(
-            User::class
-        );
+        return $this->belongsTo(User::class);
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | P2 / P3 - Team Membership
-    |--------------------------------------------------------------------------
-    */
 
     public function teams(): BelongsToMany
     {
-        return $this
-            ->belongsToMany(
-                Team::class,
-                'player_team'
-            )
+        return $this->belongsToMany(Team::class, 'player_team')
             ->withPivot([
                 'jersey_number',
                 'joined_at',
@@ -79,121 +58,109 @@ class Player extends Model
             ->withTimestamps();
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | P3 - Player Profile Relationships
-    |--------------------------------------------------------------------------
-    */
-
     public function positions(): HasMany
     {
-        return $this->hasMany(
-            PlayerPosition::class
-        );
+        return $this->hasMany(PlayerPosition::class);
     }
 
     public function availability(): HasMany
     {
-        return $this->hasMany(
-            PlayerAvailability::class
-        );
+        return $this->hasMany(PlayerAvailability::class);
     }
 
     public function contacts(): HasMany
     {
-        return $this->hasMany(
-            PlayerContact::class
-        );
+        return $this->hasMany(PlayerContact::class);
     }
 
     public function documents(): HasMany
     {
-        return $this->hasMany(
-            PlayerDocument::class
-        );
+        return $this->hasMany(PlayerDocument::class);
     }
 
     /*
     |--------------------------------------------------------------------------
-    | P9 - Tournament Squad Memberships
+    | P9 - Selection Relationships
     |--------------------------------------------------------------------------
     */
 
     public function squadMemberships(): HasMany
     {
-        return $this->hasMany(
-            SquadPlayer::class,
-            'player_id'
-        );
+        return $this->hasMany(SquadPlayer::class, 'player_id');
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | P9 - Match Squad Memberships
-    |--------------------------------------------------------------------------
-    */
 
     public function matchSquadMemberships(): HasMany
     {
-        return $this->hasMany(
-            MatchSquadPlayer::class,
-            'player_id'
-        );
+        return $this->hasMany(MatchSquadPlayer::class, 'player_id');
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | P9 - Playing XI
-    |--------------------------------------------------------------------------
-    */
 
     public function playingXiEntries(): HasMany
     {
-        return $this->hasMany(
-            PlayingXi::class,
-            'player_id'
-        );
+        return $this->hasMany(PlayingXi::class, 'player_id');
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | P9 - Batting Orders
-    |--------------------------------------------------------------------------
-    */
 
     public function battingOrderEntries(): HasMany
     {
-        return $this->hasMany(
-            BattingOrder::class,
-            'player_id'
-        );
+        return $this->hasMany(BattingOrder::class, 'player_id');
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | P9 - Bowling Assignments
-    |--------------------------------------------------------------------------
-    */
 
     public function bowlingAssignments(): HasMany
     {
-        return $this->hasMany(
-            BowlingAssignment::class,
-            'player_id'
-        );
+        return $this->hasMany(BowlingAssignment::class, 'player_id');
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | P9 - Selection Decisions
-    |--------------------------------------------------------------------------
-    */
 
     public function selectionDecisions(): HasMany
     {
-        return $this->hasMany(
-            SelectionDecision::class,
-            'player_id'
-        );
+        return $this->hasMany(SelectionDecision::class, 'player_id');
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | P10 - Training & Development
+    |--------------------------------------------------------------------------
+    */
+
+    public function trainingSessionMemberships(): HasMany
+    {
+        return $this->hasMany(TrainingSessionPlayer::class, 'player_id');
+    }
+
+    public function fitnessTests(): HasMany
+    {
+        return $this->hasMany(FitnessTest::class, 'player_id');
+    }
+
+    public function assessments(): HasMany
+    {
+        return $this->hasMany(PlayerAssessment::class, 'player_id');
+    }
+
+    public function trainingObjectives(): HasMany
+    {
+        return $this->hasMany(TrainingObjective::class, 'player_id');
+    }
+
+    public function developmentPlans(): HasMany
+    {
+        return $this->hasMany(DevelopmentPlan::class, 'player_id');
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | P11 - Scouting & Recruitment
+    |--------------------------------------------------------------------------
+    */
+
+    public function scoutingProfiles(): HasMany
+    {
+        return $this->hasMany(ScoutingProfile::class, 'existing_player_id');
+    }
+
+    public function convertedFromScoutingProfiles(): HasMany
+    {
+        return $this->hasMany(ScoutingProfile::class, 'converted_player_id');
+    }
+
 }

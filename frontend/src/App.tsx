@@ -24,7 +24,15 @@ import { PlayersPage } from "./pages/PlayersPage";
 import { PlayingXiPage } from "./pages/PlayingXiPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { SeasonsPage } from "./pages/SeasonsPage";
+import { ScoutingComparePage } from "./pages/ScoutingComparePage";
+import { ScoutingDashboardPage } from "./pages/ScoutingDashboardPage";
+import { ScoutingProfilePage } from "./pages/ScoutingProfilePage";
+import { ScoutingReportPage } from "./pages/ScoutingReportPage";
+
 import { TeamsPage } from "./pages/TeamsPage";
+import { TrainingCalendarPage } from "./pages/TrainingCalendarPage";
+import { TrainingSessionPage } from "./pages/TrainingSessionPage";
+import { PlayerDevelopmentPage } from "./pages/PlayerDevelopmentPage";
 import { TournamentDetailsPage } from "./pages/TournamentDetailsPage";
 import { TournamentSquadPage } from "./pages/TournamentSquadPage";
 import { TournamentsPage } from "./pages/TournamentsPage";
@@ -238,6 +246,79 @@ export default function App() {
         element={
           <ProtectedRoute>
             <LiveMatchCentrePage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P10 - Training & Player Development
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/training"
+        element={
+          <ProtectedRoute>
+            <TrainingCalendarPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/organizations/:organizationId/training/sessions/:sessionId"
+        element={
+          <ProtectedRoute>
+            <TrainingSessionPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/organizations/:organizationId/players/:playerId/development"
+        element={
+          <ProtectedRoute>
+            <PlayerDevelopmentPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P11 - Scouting & Recruitment
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/scouting"
+        element={
+          <ProtectedRoute>
+            <ScoutingDashboardPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/organizations/:organizationId/scouting/profiles/:profileId"
+        element={
+          <ProtectedRoute>
+            <ScoutingProfilePage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/organizations/:organizationId/scouting/reports/:reportId"
+        element={
+          <ProtectedRoute>
+            <ScoutingReportPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/organizations/:organizationId/scouting/compare"
+        element={
+          <ProtectedRoute>
+            <ScoutingComparePage />
           </ProtectedRoute>
         }
       />

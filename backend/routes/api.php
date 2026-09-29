@@ -10,9 +10,11 @@ use App\Http\Controllers\Api\V1\MatchController;
 use App\Http\Controllers\Api\V1\OrganizationController;
 use App\Http\Controllers\Api\V1\PlayerController;
 use App\Http\Controllers\Api\V1\SeasonController;
+use App\Http\Controllers\Api\V1\ScoutingController;
 use App\Http\Controllers\Api\V1\SelectionController;
 use App\Http\Controllers\Api\V1\StatisticsController;
 use App\Http\Controllers\Api\V1\TeamController;
+use App\Http\Controllers\Api\V1\TrainingController;
 use App\Http\Controllers\Api\V1\TournamentController;
 use App\Http\Controllers\Api\V1\VenueController;
 use Illuminate\Support\Facades\Route;
@@ -309,6 +311,234 @@ Route::prefix('v1')->group(function () {
         Route::post(
             '/organizations/{organization}/matches/{match}/teams/{team}/selection-decisions',
             [SelectionController::class, 'saveDecision']
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P10 - Training & Player Development
+        |--------------------------------------------------------------------------
+        */
+        Route::get(
+            '/organizations/{organization}/training/options',
+            [TrainingController::class, 'options']
+        );
+
+        Route::get(
+            '/organizations/{organization}/training/sessions',
+            [TrainingController::class, 'sessions']
+        );
+
+        Route::post(
+            '/organizations/{organization}/training/sessions',
+            [TrainingController::class, 'storeSession']
+        );
+
+        Route::get(
+            '/organizations/{organization}/training/sessions/{trainingSession}',
+            [TrainingController::class, 'showSession']
+        );
+
+        Route::put(
+            '/organizations/{organization}/training/sessions/{trainingSession}',
+            [TrainingController::class, 'updateSession']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/training/sessions/{trainingSession}',
+            [TrainingController::class, 'destroySession']
+        );
+
+        Route::put(
+            '/organizations/{organization}/training/sessions/{trainingSession}/players',
+            [TrainingController::class, 'syncSessionPlayers']
+        );
+
+        Route::put(
+            '/organizations/{organization}/training/sessions/{trainingSession}/attendance',
+            [TrainingController::class, 'markAttendance']
+        );
+
+        Route::get(
+            '/organizations/{organization}/training/drills',
+            [TrainingController::class, 'drills']
+        );
+
+        Route::post(
+            '/organizations/{organization}/training/drills',
+            [TrainingController::class, 'storeDrill']
+        );
+
+        Route::put(
+            '/organizations/{organization}/training/drills/{trainingDrill}',
+            [TrainingController::class, 'updateDrill']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/training/drills/{trainingDrill}',
+            [TrainingController::class, 'destroyDrill']
+        );
+
+        Route::get(
+            '/organizations/{organization}/training/players/{player}/fitness-tests',
+            [TrainingController::class, 'fitnessTests']
+        );
+
+        Route::post(
+            '/organizations/{organization}/training/fitness-tests',
+            [TrainingController::class, 'storeFitnessTest']
+        );
+
+        Route::put(
+            '/organizations/{organization}/training/fitness-tests/{fitnessTest}',
+            [TrainingController::class, 'updateFitnessTest']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/training/fitness-tests/{fitnessTest}',
+            [TrainingController::class, 'destroyFitnessTest']
+        );
+
+        Route::get(
+            '/organizations/{organization}/training/players/{player}/assessments',
+            [TrainingController::class, 'assessments']
+        );
+
+        Route::post(
+            '/organizations/{organization}/training/assessments',
+            [TrainingController::class, 'storeAssessment']
+        );
+
+        Route::put(
+            '/organizations/{organization}/training/assessments/{playerAssessment}',
+            [TrainingController::class, 'updateAssessment']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/training/assessments/{playerAssessment}',
+            [TrainingController::class, 'destroyAssessment']
+        );
+
+        Route::get(
+            '/organizations/{organization}/training/players/{player}/objectives',
+            [TrainingController::class, 'objectives']
+        );
+
+        Route::post(
+            '/organizations/{organization}/training/objectives',
+            [TrainingController::class, 'storeObjective']
+        );
+
+        Route::put(
+            '/organizations/{organization}/training/objectives/{trainingObjective}',
+            [TrainingController::class, 'updateObjective']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/training/objectives/{trainingObjective}',
+            [TrainingController::class, 'destroyObjective']
+        );
+
+        Route::get(
+            '/organizations/{organization}/training/players/{player}/development-plans',
+            [TrainingController::class, 'developmentPlans']
+        );
+
+        Route::post(
+            '/organizations/{organization}/training/development-plans',
+            [TrainingController::class, 'storeDevelopmentPlan']
+        );
+
+        Route::put(
+            '/organizations/{organization}/training/development-plans/{developmentPlan}',
+            [TrainingController::class, 'updateDevelopmentPlan']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/training/development-plans/{developmentPlan}',
+            [TrainingController::class, 'destroyDevelopmentPlan']
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P11 - Scouting & Recruitment
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/organizations/{organization}/scouting/profiles',
+            [ScoutingController::class, 'index']
+        );
+
+        Route::post(
+            '/organizations/{organization}/scouting/profiles',
+            [ScoutingController::class, 'store']
+        );
+
+        Route::get(
+            '/organizations/{organization}/scouting/profiles/{scoutingProfile}',
+            [ScoutingController::class, 'show']
+        );
+
+        Route::put(
+            '/organizations/{organization}/scouting/profiles/{scoutingProfile}',
+            [ScoutingController::class, 'update']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/scouting/profiles/{scoutingProfile}',
+            [ScoutingController::class, 'destroy']
+        );
+
+        Route::post(
+            '/organizations/{organization}/scouting/profiles/{scoutingProfile}/reports',
+            [ScoutingController::class, 'storeReport']
+        );
+
+        Route::get(
+            '/organizations/{organization}/scouting/reports/{scoutingReport}',
+            [ScoutingController::class, 'showReport']
+        );
+
+        Route::put(
+            '/organizations/{organization}/scouting/reports/{scoutingReport}',
+            [ScoutingController::class, 'updateReport']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/scouting/reports/{scoutingReport}',
+            [ScoutingController::class, 'destroyReport']
+        );
+
+        Route::post(
+            '/organizations/{organization}/scouting/reports/{scoutingReport}/media',
+            [ScoutingController::class, 'addMedia']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/scouting/media/{scoutingMedia}',
+            [ScoutingController::class, 'destroyMedia']
+        );
+
+        Route::post(
+            '/organizations/{organization}/scouting/profiles/{scoutingProfile}/notes',
+            [ScoutingController::class, 'addNote']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/scouting/notes/{scoutingNote}',
+            [ScoutingController::class, 'destroyNote']
+        );
+
+        Route::get(
+            '/organizations/{organization}/scouting/compare',
+            [ScoutingController::class, 'compare']
+        );
+
+        Route::post(
+            '/organizations/{organization}/scouting/profiles/{scoutingProfile}/convert',
+            [ScoutingController::class, 'convert']
         );
     });
 
