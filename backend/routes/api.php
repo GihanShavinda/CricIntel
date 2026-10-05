@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\FixtureController;
 use App\Http\Controllers\Api\V1\LiveMatchController;
 use App\Http\Controllers\Api\V1\MatchController;
 use App\Http\Controllers\Api\V1\OrganizationController;
+use App\Http\Controllers\Api\V1\OpponentAnalyticsController;
 use App\Http\Controllers\Api\V1\PlayerController;
 use App\Http\Controllers\Api\V1\SeasonController;
 use App\Http\Controllers\Api\V1\ScoutingController;
@@ -539,6 +540,43 @@ Route::prefix('v1')->group(function () {
         Route::post(
             '/organizations/{organization}/scouting/profiles/{scoutingProfile}/convert',
             [ScoutingController::class, 'convert']
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P12 - Deterministic Opponent Intelligence
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/organizations/{organization}/opponent-analytics/options',
+            [OpponentAnalyticsController::class, 'options']
+        );
+
+        Route::get(
+            '/organizations/{organization}/opponent-analytics/teams/{team}',
+            [OpponentAnalyticsController::class, 'team']
+        );
+
+        Route::get(
+            '/organizations/{organization}/opponent-analytics/batters/{player}',
+            [OpponentAnalyticsController::class, 'batter']
+        );
+
+        Route::get(
+            '/organizations/{organization}/opponent-analytics/bowlers/{player}',
+            [OpponentAnalyticsController::class, 'bowler']
+        );
+
+        Route::get(
+            '/organizations/{organization}/opponent-analytics/matchup',
+            [OpponentAnalyticsController::class, 'matchup']
+        );
+
+        Route::get(
+            '/organizations/{organization}/opponent-analytics/teams/{team}/partnerships',
+            [OpponentAnalyticsController::class, 'partnerships']
         );
     });
 

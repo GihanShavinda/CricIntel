@@ -206,7 +206,8 @@ export function OrganizationDetailsPage() {
               competition workflow,
               live scoring, analytics,
               training, player development,
-              scouting, and recruitment.
+              scouting, recruitment, and
+              opponent intelligence.
             </p>
           </div>
         </div>
@@ -286,6 +287,18 @@ export function OrganizationDetailsPage() {
               ratings, media and recruitment
             </span>
           </Link>
+
+          <Link
+            className="opponent-intelligence-module-link"
+            to={`/organizations/${id}/opponent-intelligence`}
+          >
+            <strong>Opponent Intelligence</strong>
+            <span>
+              Deterministic batter, bowler,
+              matchup and partnership analytics
+            </span>
+          </Link>
+
         </div>
       </section>
     </AppLayout>

@@ -16,6 +16,7 @@ import { MatchSquadPage } from "./pages/MatchSquadPage";
 import { MatchesPage } from "./pages/MatchesPage";
 import { OrganizationDetailsPage } from "./pages/OrganizationDetailsPage";
 import { OrganizationsPage } from "./pages/OrganizationsPage";
+import { OpponentIntelligencePage } from "./pages/OpponentIntelligencePage";
 import { PlayerComparisonPage } from "./pages/PlayerComparisonPage";
 import { PlayerCreatePage } from "./pages/PlayerCreatePage";
 import { PlayerEditPage } from "./pages/PlayerEditPage";
@@ -319,6 +320,20 @@ export default function App() {
         element={
           <ProtectedRoute>
             <ScoutingComparePage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P12 - Deterministic Opponent Intelligence
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/opponent-intelligence"
+        element={
+          <ProtectedRoute>
+            <OpponentIntelligencePage />
           </ProtectedRoute>
         }
       />
