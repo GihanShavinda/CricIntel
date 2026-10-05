@@ -1,16 +1,33 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
-import { Link } from "react-router-dom";
+import {
+  Link,
+} from 'react-router-dom';
 
-import { useAuth } from "../auth/AuthContext";
+import {
+  useAuth,
+} from '../auth/AuthContext';
 
-import { listOrganizations } from "../api/organizations";
+import {
+  listOrganizations,
+} from '../api/organizations';
 
-import { AppIcon, type AppIconName } from "../components/AppIcon";
+import {
+  AppIcon,
+  type AppIconName,
+} from '../components/AppIcon';
 
-import { AppLayout } from "../components/AppLayout";
+import {
+  AppLayout,
+} from '../components/AppLayout';
 
-import type { Organization } from "../types/organization";
+import type {
+  Organization,
+} from '../types/organization';
 
 type Capability = {
   milestone: string;
@@ -21,127 +38,177 @@ type Capability = {
 
 const capabilities: Capability[] = [
   {
-    milestone: "P1",
-    title: "Identity & Access",
-    description: "Sanctum authentication, roles and protected operations.",
-    icon: "shield",
+    milestone: 'P1',
+    title: 'Identity & Access',
+    description:
+      'Sanctum authentication, roles and protected operations.',
+    icon: 'shield',
   },
   {
-    milestone: "P2",
-    title: "Organization Core",
-    description: "Organizations, clubs, teams and seasons.",
-    icon: "organization",
+    milestone: 'P2',
+    title: 'Organization Core',
+    description:
+      'Organizations, clubs, teams and seasons.',
+    icon: 'organization',
   },
   {
-    milestone: "P3",
-    title: "Player Management",
-    description: "Player profiles, team membership and availability.",
-    icon: "players",
+    milestone: 'P3',
+    title: 'Player Management',
+    description:
+      'Player profiles, team membership and availability.',
+    icon: 'players',
   },
   {
-    milestone: "P4",
-    title: "Competition Operations",
-    description: "Venues, tournaments, registrations and fixtures.",
-    icon: "trophy",
+    milestone: 'P4',
+    title: 'Competition Operations',
+    description:
+      'Venues, tournaments, registrations and fixtures.',
+    icon: 'trophy',
   },
   {
-    milestone: "P5",
-    title: "Match Engine",
-    description: "Deterministic innings, overs and ball-by-ball scoring.",
-    icon: "activity",
+    milestone: 'P5',
+    title: 'Match Engine',
+    description:
+      'Deterministic innings, overs and ball-by-ball scoring.',
+    icon: 'activity',
   },
   {
-    milestone: "P6",
-    title: "Cricket Statistics",
-    description: "Batting, bowling, fielding and match statistics.",
-    icon: "analytics",
+    milestone: 'P6',
+    title: 'Cricket Statistics',
+    description:
+      'Batting, bowling, fielding and match statistics.',
+    icon: 'analytics',
   },
   {
-    milestone: "P7",
-    title: "Analytics",
-    description: "Trend dashboards, charts and comparisons.",
-    icon: "analytics",
+    milestone: 'P7',
+    title: 'Analytics',
+    description:
+      'Trend dashboards, charts and comparisons.',
+    icon: 'analytics',
   },
   {
-    milestone: "P8",
-    title: "Realtime Match Centre",
-    description: "Live match updates powered by Laravel Reverb.",
-    icon: "activity",
+    milestone: 'P8',
+    title: 'Realtime Match Centre',
+    description:
+      'Live match updates powered by Laravel Reverb.',
+    icon: 'activity',
   },
   {
-    milestone: "P9",
-    title: "Selection",
-    description: "Squads, playing XI, batting order and bowling roles.",
-    icon: "teams",
+    milestone: 'P9',
+    title: 'Selection',
+    description:
+      'Squads, playing XI, batting order and bowling roles.',
+    icon: 'teams',
   },
   {
-    milestone: "P10",
-    title: "Training & Development",
-    description: "Sessions, attendance, fitness and development plans.",
-    icon: "training",
+    milestone: 'P10',
+    title: 'Training & Development',
+    description:
+      'Sessions, attendance, fitness and development plans.',
+    icon: 'training',
   },
   {
-    milestone: "P11",
-    title: "Scouting & Recruitment",
-    description: "Prospect reports, ratings, media and recruitment.",
-    icon: "scouting",
+    milestone: 'P11',
+    title: 'Scouting & Recruitment',
+    description:
+      'Prospect reports, ratings, media and recruitment.',
+    icon: 'scouting',
   },
   {
-    milestone: "P12",
-    title: "Opponent Intelligence",
-    description: "Deterministic opponent, matchup and partnership analytics.",
-    icon: "target",
+    milestone: 'P12',
+    title: 'Opponent Intelligence',
+    description:
+      'Deterministic opponent, matchup and partnership analytics.',
+    icon: 'target',
+  },
+  {
+    milestone: 'P13',
+    title: 'Tactical Planning',
+    description:
+      'Collaborative match strategy, discussions, mentions and audit history.',
+    icon: 'strategy',
   },
 ];
 
 export function DashboardPage() {
-  const { user } = useAuth();
+  const {
+    user,
+  } = useAuth();
 
-  const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const [
+    organizations,
+    setOrganizations,
+  ] = useState<Organization[]>([]);
 
-  const [organizationTotal, setOrganizationTotal] = useState(0);
+  const [
+    organizationTotal,
+    setOrganizationTotal,
+  ] = useState(0);
 
-  const [loadingOrganizations, setLoadingOrganizations] = useState(true);
+  const [
+    loadingOrganizations,
+    setLoadingOrganizations,
+  ] = useState(true);
 
-  const [organizationError, setOrganizationError] = useState("");
+  const [
+    organizationError,
+    setOrganizationError,
+  ] = useState('');
 
-  const roles = user?.roles ?? [];
+  const roles =
+    user?.roles ?? [];
 
-  const isAdministrator = roles.includes("Administrator");
+  const isAdministrator =
+    roles.includes('Administrator');
 
   useEffect(() => {
     let active = true;
 
-    const load = async () => {
-      setLoadingOrganizations(true);
-      setOrganizationError("");
+    const load =
+      async () => {
+        setLoadingOrganizations(true);
+        setOrganizationError('');
 
-      try {
-        const result = await listOrganizations({
-          per_page: 6,
-        });
+        try {
+          const result =
+            await listOrganizations({
+              per_page: 6,
+            });
 
-        if (!active) {
-          return;
+          if (!active) {
+            return;
+          }
+
+          setOrganizations(
+            Array.isArray(result.data)
+              ? result.data
+              : [],
+          );
+
+          setOrganizationTotal(
+            Number(
+              result.meta?.total ??
+                result.data?.length ??
+                0,
+            ),
+          );
+        } catch (error) {
+          console.error(
+            'Dashboard organizations failed:',
+            error,
+          );
+
+          if (active) {
+            setOrganizationError(
+              'Unable to load organization overview.',
+            );
+          }
+        } finally {
+          if (active) {
+            setLoadingOrganizations(false);
+          }
         }
-
-        setOrganizations(Array.isArray(result.data) ? result.data : []);
-
-        setOrganizationTotal(
-          Number(result.meta?.total ?? result.data?.length ?? 0),
-        );
-      } catch (error) {
-        console.error("Dashboard organizations failed:", error);
-
-        if (active) {
-          setOrganizationError("Unable to load organization overview.");
-        }
-      } finally {
-        if (active) {
-          setLoadingOrganizations(false);
-        }
-      }
-    };
+      };
 
     void load();
 
@@ -150,109 +217,154 @@ export function DashboardPage() {
     };
   }, []);
 
-  const primaryOrganization = organizations[0] ?? null;
+  const primaryOrganization =
+    organizations[0] ?? null;
 
-  const quickActions = useMemo(() => {
-    const items: Array<{
-      title: string;
-      description: string;
-      to: string;
-      icon: AppIconName;
-      accent: string;
-    }> = [
-      {
-        title: "Organizations",
-        description:
-          "Open your cricket organizations and operational workspaces.",
-        to: "/organizations",
-        icon: "organization",
-        accent: "orange",
-      },
-    ];
-
-    if (primaryOrganization) {
-      const id = primaryOrganization.id;
-
-      items.push(
+  const quickActions =
+    useMemo(() => {
+      const items: Array<{
+        title: string;
+        description: string;
+        to: string;
+        icon: AppIconName;
+        accent: string;
+      }> = [
         {
-          title: "Match Centre",
-          description: "Open matches, scoring and live match operations.",
-          to: `/organizations/${id}/matches`,
-          icon: "activity",
-          accent: "red",
-        },
-        {
-          title: "Analytics",
-          description: "Review deterministic cricket statistics and trends.",
-          to: `/organizations/${id}/analytics`,
-          icon: "analytics",
-          accent: "blue",
-        },
-        {
-          title: "Training",
-          description: "Manage sessions, attendance, fitness and development.",
-          to: `/organizations/${id}/training`,
-          icon: "training",
-          accent: "green",
-        },
-        {
-          title: "Scouting",
-          description: "Review prospects, reports, ratings and recruitment.",
-          to: `/organizations/${id}/scouting`,
-          icon: "scouting",
-          accent: "purple",
-        },
-        {
-          title: "Opponent Intel",
+          title: 'Organizations',
           description:
-            "Explore matchup, batter, bowler and partnership tendencies.",
-          to: `/organizations/${id}/opponent-intelligence`,
-          icon: "target",
-          accent: "slate",
+            'Open your cricket organizations and operational workspaces.',
+          to: '/organizations',
+          icon: 'organization',
+          accent: 'orange',
         },
-      );
-    }
+      ];
 
-    if (isAdministrator) {
-      items.push({
-        title: "Administration",
-        description: "Manage administrative access and platform controls.",
-        to: "/admin",
-        icon: "shield",
-        accent: "dark",
-      });
-    }
+      if (primaryOrganization) {
+        const id =
+          primaryOrganization.id;
 
-    return items;
-  }, [primaryOrganization, isAdministrator]);
+        items.push(
+          {
+            title: 'Match Centre',
+            description:
+              'Open matches, scoring and live match operations.',
+            to: `/organizations/${id}/matches`,
+            icon: 'activity',
+            accent: 'red',
+          },
+          {
+            title: 'Analytics',
+            description:
+              'Review deterministic cricket statistics and trends.',
+            to: `/organizations/${id}/analytics`,
+            icon: 'analytics',
+            accent: 'blue',
+          },
+          {
+            title: 'Training',
+            description:
+              'Manage sessions, attendance, fitness and development.',
+            to: `/organizations/${id}/training`,
+            icon: 'training',
+            accent: 'green',
+          },
+          {
+            title: 'Scouting',
+            description:
+              'Review prospects, reports, ratings and recruitment.',
+            to: `/organizations/${id}/scouting`,
+            icon: 'scouting',
+            accent: 'purple',
+          },
+          {
+            title: 'Opponent Intel',
+            description:
+              'Explore matchup, batter, bowler and partnership tendencies.',
+            to: `/organizations/${id}/opponent-intelligence`,
+            icon: 'target',
+            accent: 'slate',
+          },
+          {
+            title: 'Tactical Strategy',
+            description:
+              'Build and collaborate on match plans, notes and assignments.',
+            to: `/organizations/${id}/strategy`,
+            icon: 'strategy',
+            accent: 'orange',
+          },
+        );
+      }
 
-  const displayDate = new Intl.DateTimeFormat(undefined, {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date());
+      if (isAdministrator) {
+        items.push({
+          title: 'Administration',
+          description:
+            'Manage administrative access and platform controls.',
+          to: '/admin',
+          icon: 'shield',
+          accent: 'dark',
+        });
+      }
+
+      return items;
+    }, [
+      primaryOrganization,
+      isAdministrator,
+    ]);
+
+  const displayDate =
+    new Intl.DateTimeFormat(
+      undefined,
+      {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      },
+    ).format(new Date());
 
   return (
     <AppLayout>
       <section className="dashboard-hero">
         <div className="dashboard-hero-copy">
-          <p className="dashboard-kicker">CricIntel Command Centre</p>
+          <p className="dashboard-kicker">
+            CricIntel Command Centre
+          </p>
 
           <h1>
-            Welcome back, <span>{user?.name ?? "CricIntel User"}</span>
+            Welcome back,
+            {' '}
+            <span>
+              {user?.name ??
+                'CricIntel User'}
+            </span>
           </h1>
 
           <p>
-            Your cricket operations, match intelligence, player development and
-            recruitment workflows are available from one professional workspace.
+            Your cricket operations,
+            match intelligence,
+            player development and
+            recruitment workflows are
+            available from one
+            professional workspace.
           </p>
 
           <div className="dashboard-hero-actions">
-            <Link to="/organizations" className="dashboard-primary-action">
-              <AppIcon name="organization" size={18} />
+            <Link
+              to="/organizations"
+              className="dashboard-primary-action"
+            >
+              <AppIcon
+                name="organization"
+                size={18}
+              />
+
               Open organizations
-              <AppIcon name="arrowRight" size={17} />
+
+              <AppIcon
+                name="arrowRight"
+                size={17}
+              />
             </Link>
 
             {primaryOrganization && (
@@ -260,9 +372,15 @@ export function DashboardPage() {
                 to={`/organizations/${primaryOrganization.id}`}
                 className="dashboard-secondary-action"
               >
-                Continue{" "}
-                {primaryOrganization.short_name ?? primaryOrganization.name}
-                <AppIcon name="arrowRight" size={17} />
+                Continue
+                {' '}
+                {primaryOrganization.short_name ??
+                  primaryOrganization.name}
+
+                <AppIcon
+                  name="arrowRight"
+                  size={17}
+                />
               </Link>
             )}
           </div>
@@ -270,29 +388,51 @@ export function DashboardPage() {
 
         <div className="dashboard-hero-panel">
           <div className="dashboard-date-row">
-            <AppIcon name="calendar" size={18} />
+            <AppIcon
+              name="calendar"
+              size={18}
+            />
 
-            <span>{displayDate}</span>
+            <span>
+              {displayDate}
+            </span>
           </div>
 
           <div className="dashboard-session-card">
             <span className="ci-status-dot online" />
 
             <div>
-              <strong>Platform operational</strong>
+              <strong>
+                Platform operational
+              </strong>
 
-              <small>Authenticated CricIntel session</small>
+              <small>
+                Authenticated CricIntel
+                session
+              </small>
             </div>
           </div>
 
           <div className="dashboard-role-stack">
-            <span>Access profile</span>
+            <span>
+              Access profile
+            </span>
 
             <div>
               {roles.length ? (
-                roles.map((role) => <strong key={role}>{role}</strong>)
+                roles.map(
+                  (role) => (
+                    <strong
+                      key={role}
+                    >
+                      {role}
+                    </strong>
+                  ),
+                )
               ) : (
-                <strong>User</strong>
+                <strong>
+                  User
+                </strong>
               )}
             </div>
           </div>
@@ -302,94 +442,150 @@ export function DashboardPage() {
       <section className="dashboard-stat-grid">
         <article className="dashboard-stat-card">
           <span className="dashboard-stat-icon">
-            <AppIcon name="organization" size={21} />
+            <AppIcon
+              name="organization"
+              size={21}
+            />
           </span>
 
           <div>
-            <strong>{loadingOrganizations ? "…" : organizationTotal}</strong>
+            <strong>
+              {loadingOrganizations
+                ? '…'
+                : organizationTotal}
+            </strong>
 
-            <span>Accessible organizations</span>
+            <span>
+              Accessible organizations
+            </span>
           </div>
 
-          <small>Membership-scoped access</small>
+          <small>
+            Membership-scoped access
+          </small>
         </article>
 
         <article className="dashboard-stat-card">
           <span className="dashboard-stat-icon blue">
-            <AppIcon name="shield" size={21} />
+            <AppIcon
+              name="shield"
+              size={21}
+            />
           </span>
 
           <div>
-            <strong>{roles.length}</strong>
+            <strong>
+              {roles.length}
+            </strong>
 
-            <span>Active roles</span>
+            <span>
+              Active roles
+            </span>
           </div>
 
-          <small>Role-based authorization</small>
+          <small>
+            Role-based authorization
+          </small>
         </article>
 
         <article className="dashboard-stat-card">
           <span className="dashboard-stat-icon green">
-            <AppIcon name="activity" size={21} />
+            <AppIcon
+              name="activity"
+              size={21}
+            />
           </span>
 
           <div>
-            <strong>12</strong>
+            <strong>
+              13
+            </strong>
 
-            <span>Completed milestones</span>
+            <span>
+              Completed milestones
+            </span>
           </div>
 
-          <small>P1 through P12</small>
+          <small>
+            P1 through P13
+          </small>
         </article>
 
         <article className="dashboard-stat-card">
           <span className="dashboard-stat-icon purple">
-            <AppIcon name="analytics" size={21} />
+            <AppIcon
+              name="analytics"
+              size={21}
+            />
           </span>
 
           <div>
-            <strong>Deterministic</strong>
+            <strong>
+              Deterministic
+            </strong>
 
-            <span>Analytics foundation</span>
+            <span>
+              Analytics foundation
+            </span>
           </div>
 
-          <small>No LLM recommendations yet</small>
+          <small>
+            No LLM recommendations yet
+          </small>
         </article>
       </section>
 
       <section className="dashboard-section">
         <div className="dashboard-section-heading">
           <div>
-            <p>Fast access</p>
+            <p>
+              Fast access
+            </p>
 
-            <h2>Quick actions</h2>
+            <h2>
+              Quick actions
+            </h2>
 
             <span>
-              Jump directly into your most important cricket workflows.
+              Jump directly into your
+              most important cricket
+              workflows.
             </span>
           </div>
         </div>
 
         <div className="dashboard-quick-grid">
-          {quickActions.map((action) => (
-            <Link
-              className={`dashboard-quick-card ${action.accent}`}
-              to={action.to}
-              key={action.title}
-            >
-              <span className="dashboard-quick-icon">
-                <AppIcon name={action.icon} size={22} />
-              </span>
+          {quickActions.map(
+            (action) => (
+              <Link
+                className={`dashboard-quick-card ${action.accent}`}
+                to={action.to}
+                key={action.title}
+              >
+                <span className="dashboard-quick-icon">
+                  <AppIcon
+                    name={action.icon}
+                    size={22}
+                  />
+                </span>
 
-              <div>
-                <strong>{action.title}</strong>
+                <div>
+                  <strong>
+                    {action.title}
+                  </strong>
 
-                <span>{action.description}</span>
-              </div>
+                  <span>
+                    {action.description}
+                  </span>
+                </div>
 
-              <AppIcon name="arrowRight" size={18} />
-            </Link>
-          ))}
+                <AppIcon
+                  name="arrowRight"
+                  size={18}
+                />
+              </Link>
+            ),
+          )}
         </div>
       </section>
 
@@ -397,23 +593,37 @@ export function DashboardPage() {
         <section className="dashboard-section">
           <div className="dashboard-section-heading">
             <div>
-              <p>Workspace</p>
+              <p>
+                Workspace
+              </p>
 
-              <h2>Organizations overview</h2>
+              <h2>
+                Organizations overview
+              </h2>
 
               <span>
-                Open an accessible organization-specific cricket workspace.
+                Open an accessible
+                organization-specific
+                cricket workspace.
               </span>
             </div>
 
-            <Link to="/organizations" className="dashboard-text-link">
+            <Link
+              to="/organizations"
+              className="dashboard-text-link"
+            >
               View all
-              <AppIcon name="arrowRight" size={15} />
+              <AppIcon
+                name="arrowRight"
+                size={15}
+              />
             </Link>
           </div>
 
           {organizationError && (
-            <div className="dashboard-inline-error">{organizationError}</div>
+            <div className="dashboard-inline-error">
+              {organizationError}
+            </div>
           )}
 
           <div className="dashboard-organization-list">
@@ -426,56 +636,91 @@ export function DashboardPage() {
             )}
 
             {!loadingOrganizations &&
-              organizations.map((organization) => (
-                <Link
-                  to={`/organizations/${organization.id}`}
-                  className="dashboard-organization-row"
-                  key={organization.id}
-                >
-                  <span className="dashboard-org-logo">
-                    {organization.logo_url ? (
-                      <img src={organization.logo_url} alt="" />
-                    ) : (
-                      (organization.short_name ?? organization.name)
-                        .slice(0, 2)
-                        .toUpperCase()
-                    )}
-                  </span>
-
-                  <div>
-                    <strong>{organization.name}</strong>
-
-                    <span>
-                      {organization.country ?? "Country not set"}
-                      {" · "}
-                      {organization.status}
+              organizations.map(
+                (organization) => (
+                  <Link
+                    to={`/organizations/${organization.id}`}
+                    className="dashboard-organization-row"
+                    key={organization.id}
+                  >
+                    <span className="dashboard-org-logo">
+                      {organization.logo_url ? (
+                        <img
+                          src={organization.logo_url}
+                          alt=""
+                        />
+                      ) : (
+                        (
+                          organization.short_name ??
+                          organization.name
+                        )
+                          .slice(0, 2)
+                          .toUpperCase()
+                      )}
                     </span>
-                  </div>
 
-                  <div className="dashboard-org-meta">
-                    <span>{organization.clubs_count ?? "—"} clubs</span>
+                    <div>
+                      <strong>
+                        {organization.name}
+                      </strong>
 
-                    <span>{organization.seasons_count ?? "—"} seasons</span>
-                  </div>
+                      <span>
+                        {organization.country ??
+                          'Country not set'}
+                        {' · '}
+                        {organization.status}
+                      </span>
+                    </div>
 
-                  <AppIcon name="chevronRight" size={17} />
-                </Link>
-              ))}
+                    <div className="dashboard-org-meta">
+                      <span>
+                        {organization.clubs_count ??
+                          '—'}
+                        {' '}
+                        clubs
+                      </span>
+
+                      <span>
+                        {organization.seasons_count ??
+                          '—'}
+                        {' '}
+                        seasons
+                      </span>
+                    </div>
+
+                    <AppIcon
+                      name="chevronRight"
+                      size={17}
+                    />
+                  </Link>
+                ),
+              )}
 
             {!loadingOrganizations &&
               !organizationError &&
-              organizations.length === 0 && (
+              organizations.length ===
+                0 && (
                 <div className="dashboard-empty-state">
-                  <AppIcon name="organization" size={28} />
+                  <AppIcon
+                    name="organization"
+                    size={28}
+                  />
 
-                  <strong>No organizations available</strong>
+                  <strong>
+                    No organizations
+                    available
+                  </strong>
 
                   <span>
-                    Create an organization or ask an administrator to add your
-                    membership.
+                    Create an organization
+                    or ask an administrator
+                    to add your membership.
                   </span>
 
-                  <Link to="/organizations" className="button">
+                  <Link
+                    to="/organizations"
+                    className="button"
+                  >
                     Open organizations
                   </Link>
                 </div>
@@ -486,55 +731,89 @@ export function DashboardPage() {
         <section className="dashboard-section">
           <div className="dashboard-section-heading">
             <div>
-              <p>Access</p>
+              <p>
+                Access
+              </p>
 
-              <h2>Your workspace profile</h2>
+              <h2>
+                Your workspace profile
+              </h2>
 
-              <span>Current session and authorization context.</span>
+              <span>
+                Current session and
+                authorization context.
+              </span>
             </div>
           </div>
 
           <div className="dashboard-profile-card">
             <div className="dashboard-profile-head">
               <span className="dashboard-profile-avatar">
-                {(user?.name ?? "CricIntel User")
+                {(user?.name ??
+                  'CricIntel User')
                   .split(/\s+/)
                   .filter(Boolean)
                   .slice(0, 2)
-                  .map((part) => part.charAt(0).toUpperCase())
-                  .join("")}
+                  .map((part) =>
+                    part
+                      .charAt(0)
+                      .toUpperCase(),
+                  )
+                  .join('')}
               </span>
 
               <div>
-                <strong>{user?.name ?? "CricIntel User"}</strong>
+                <strong>
+                  {user?.name ??
+                    'CricIntel User'}
+                </strong>
 
-                <span>{user?.email}</span>
+                <span>
+                  {user?.email}
+                </span>
               </div>
             </div>
 
             <div className="dashboard-profile-detail">
-              <span>Account status</span>
+              <span>
+                Account status
+              </span>
 
-              <strong>{user?.status ?? "Active"}</strong>
+              <strong>
+                {user?.status ??
+                  'Active'}
+              </strong>
             </div>
 
             <div className="dashboard-profile-detail">
-              <span>Last login</span>
+              <span>
+                Last login
+              </span>
 
               <strong>
                 {user?.last_login_at
-                  ? new Date(user.last_login_at).toLocaleString()
-                  : "Current session"}
+                  ? new Date(
+                      user.last_login_at,
+                    ).toLocaleString()
+                  : 'Current session'}
               </strong>
             </div>
 
             <div className="dashboard-profile-roles">
-              <span>Roles</span>
+              <span>
+                Roles
+              </span>
 
               <div>
-                {roles.map((role) => (
-                  <strong key={role}>{role}</strong>
-                ))}
+                {roles.map(
+                  (role) => (
+                    <strong
+                      key={role}
+                    >
+                      {role}
+                    </strong>
+                  ),
+                )}
               </div>
             </div>
           </div>
@@ -544,72 +823,104 @@ export function DashboardPage() {
       <section className="dashboard-section">
         <div className="dashboard-section-heading">
           <div>
-            <p>Platform capability</p>
+            <p>
+              Platform capability
+            </p>
 
-            <h2>CricIntel P1–P12</h2>
+            <h2>
+              CricIntel P1–P13
+            </h2>
 
             <span>
-              A consolidated view of the cricket-management and intelligence
-              capabilities currently implemented.
+              A consolidated view of the
+              cricket-management and
+              intelligence capabilities
+              currently implemented.
             </span>
           </div>
 
           <span className="dashboard-completion-badge">
-            12 / 12 operational
+            13 / 13 operational
           </span>
         </div>
 
         <div className="dashboard-capability-grid">
-          {capabilities.map((capability) => (
-            <article
-              className="dashboard-capability-card"
-              key={capability.milestone}
-            >
-              <div className="dashboard-capability-top">
-                <span className="dashboard-capability-icon">
-                  <AppIcon name={capability.icon} size={19} />
+          {capabilities.map(
+            (capability) => (
+              <article
+                className="dashboard-capability-card"
+                key={capability.milestone}
+              >
+                <div className="dashboard-capability-top">
+                  <span className="dashboard-capability-icon">
+                    <AppIcon
+                      name={capability.icon}
+                      size={19}
+                    />
+                  </span>
+
+                  <strong>
+                    {capability.milestone}
+                  </strong>
+                </div>
+
+                <h3>
+                  {capability.title}
+                </h3>
+
+                <p>
+                  {capability.description}
+                </p>
+
+                <span className="dashboard-capability-status">
+                  <span className="ci-status-dot online" />
+                  Operational
                 </span>
-
-                <strong>{capability.milestone}</strong>
-              </div>
-
-              <h3>{capability.title}</h3>
-
-              <p>{capability.description}</p>
-
-              <span className="dashboard-capability-status">
-                <span className="ci-status-dot online" />
-                Operational
-              </span>
-            </article>
-          ))}
+              </article>
+            ),
+          )}
         </div>
       </section>
 
       <section className="dashboard-system-strip">
         <div>
           <span className="dashboard-system-icon">
-            <AppIcon name="shield" size={21} />
+            <AppIcon
+              name="shield"
+              size={21}
+            />
           </span>
 
           <div>
-            <strong>Secure operational foundation</strong>
+            <strong>
+              Secure operational foundation
+            </strong>
 
             <span>
-              Sanctum session authentication, role-based authorization,
-              deterministic statistics and realtime match infrastructure.
+              Sanctum session authentication,
+              role-based authorization,
+              deterministic statistics and
+              realtime match infrastructure.
             </span>
           </div>
         </div>
 
         <div className="dashboard-system-pills">
-          <span>Laravel API</span>
+          <span>
+            Laravel API
+          </span>
 
-          <span>React + TypeScript</span>
+          <span>
+            React + TypeScript
+          </span>
 
-          <span>PostgreSQL</span>
+          <span>
+            PostgreSQL
+          </span>
 
-          <span>Reverb</span>
+          <span>
+            Reverb
+          </span>
         </div>
       </section>
     </AppLayout>

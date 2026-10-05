@@ -55,6 +55,7 @@ const routeLabels: Record<string, string> = {
   analytics: 'Analytics',
   training: 'Training',
   scouting: 'Scouting',
+  strategy: 'Tactical Strategy',
   'opponent-intelligence': 'Opponent Intelligence',
   admin: 'Administration',
   squad: 'Squad',
@@ -320,6 +321,13 @@ export function AppLayout({
                 to: `/organizations/${organizationId}/opponent-intelligence`,
                 icon: 'target',
               },
+              {
+                label: 'Tactical Workspace',
+                description:
+                  'Collaborative match strategy planning',
+                to: `/organizations/${organizationId}/strategy`,
+                icon: 'strategy',
+              },
             ],
           },
           {
@@ -579,7 +587,7 @@ export function AppLayout({
             </strong>
 
             <small>
-              P1–P12 operational
+              P1–P13 operational
             </small>
           </div>
         </div>

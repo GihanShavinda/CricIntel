@@ -24,6 +24,7 @@ export type AppIconName =
   | 'search'
   | 'seasons'
   | 'settings'
+  | 'strategy'
   | 'shield'
   | 'target'
   | 'teams'
@@ -135,6 +136,15 @@ const paths: Record<AppIconName, ReactNode> = {
       <circle cx="12" cy="12" r="5" />
       <circle cx="12" cy="12" r="1.5" />
       <path d="M19 5 12 12" />
+    </>
+  ),
+
+  strategy: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M7 8h10M7 12h6M7 16h4" />
+      <circle cx="17" cy="15" r="2.5" />
+      <path d="m18.8 16.8 1.7 1.7" />
     </>
   ),
 

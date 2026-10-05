@@ -207,7 +207,7 @@ export function OrganizationDetailsPage() {
               live scoring, analytics,
               training, player development,
               scouting, recruitment, and
-              opponent intelligence.
+              opponent intelligence, and tactical planning.
             </p>
           </div>
         </div>
@@ -296,6 +296,17 @@ export function OrganizationDetailsPage() {
             <span>
               Deterministic batter, bowler,
               matchup and partnership analytics
+            </span>
+          </Link>
+
+          <Link
+            className="tactical-strategy-module-link"
+            to={`/organizations/${id}/strategy`}
+          >
+            <strong>Tactical Strategy</strong>
+            <span>
+              Match planning, collaboration,
+              mentions, assignments and audit history
             </span>
           </Link>
 

@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\V1\OpponentAnalyticsController;
 use App\Http\Controllers\Api\V1\PlayerController;
 use App\Http\Controllers\Api\V1\SeasonController;
 use App\Http\Controllers\Api\V1\ScoutingController;
+use App\Http\Controllers\Api\V1\StrategyPlanController;
+use App\Http\Controllers\Api\V1\StrategyCollaborationController;
 use App\Http\Controllers\Api\V1\SelectionController;
 use App\Http\Controllers\Api\V1\StatisticsController;
 use App\Http\Controllers\Api\V1\TeamController;
@@ -577,6 +579,123 @@ Route::prefix('v1')->group(function () {
         Route::get(
             '/organizations/{organization}/opponent-analytics/teams/{team}/partnerships',
             [OpponentAnalyticsController::class, 'partnerships']
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P13 - Tactical Planning Workspace
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/organizations/{organization}/strategy/options',
+            [StrategyPlanController::class, 'options']
+        );
+
+        Route::get(
+            '/organizations/{organization}/strategy/plans',
+            [StrategyPlanController::class, 'index']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans',
+            [StrategyPlanController::class, 'store']
+        );
+
+        Route::get(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}',
+            [StrategyPlanController::class, 'show']
+        );
+
+        Route::put(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}',
+            [StrategyPlanController::class, 'update']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}',
+            [StrategyPlanController::class, 'destroy']
+        );
+
+        Route::put(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/sections/{strategySection}',
+            [StrategyPlanController::class, 'updateSection']
+        );
+
+        Route::get(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/versions',
+            [StrategyPlanController::class, 'versions']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/lock',
+            [StrategyPlanController::class, 'lock']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/unlock',
+            [StrategyPlanController::class, 'unlock']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/notes',
+            [StrategyCollaborationController::class, 'storeNote']
+        );
+
+        Route::put(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/notes/{tacticalNote}',
+            [StrategyCollaborationController::class, 'updateNote']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/notes/{tacticalNote}/resolve',
+            [StrategyCollaborationController::class, 'resolveNote']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/notes/{tacticalNote}',
+            [StrategyCollaborationController::class, 'destroyNote']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/notes/{tacticalNote}/comments',
+            [StrategyCollaborationController::class, 'storeComment']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/comments/{comment}',
+            [StrategyCollaborationController::class, 'destroyComment']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/attachments',
+            [StrategyCollaborationController::class, 'storeAttachment']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/attachments/{attachment}',
+            [StrategyCollaborationController::class, 'destroyAttachment']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/assignments',
+            [StrategyCollaborationController::class, 'storeAssignment']
+        );
+
+        Route::put(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/assignments/{strategyAssignment}',
+            [StrategyCollaborationController::class, 'updateAssignment']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/assignments/{strategyAssignment}',
+            [StrategyCollaborationController::class, 'destroyAssignment']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy/plans/{strategyPlan}/mentions/{mention}/read',
+            [StrategyCollaborationController::class, 'markMentionRead']
         );
     });
 

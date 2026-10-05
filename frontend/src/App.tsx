@@ -29,6 +29,8 @@ import { ScoutingComparePage } from "./pages/ScoutingComparePage";
 import { ScoutingDashboardPage } from "./pages/ScoutingDashboardPage";
 import { ScoutingProfilePage } from "./pages/ScoutingProfilePage";
 import { ScoutingReportPage } from "./pages/ScoutingReportPage";
+import { StrategyPlansPage } from "./pages/StrategyPlansPage";
+import { TacticalWorkspacePage } from "./pages/TacticalWorkspacePage";
 
 import { TeamsPage } from "./pages/TeamsPage";
 import { TrainingCalendarPage } from "./pages/TrainingCalendarPage";
@@ -334,6 +336,29 @@ export default function App() {
         element={
           <ProtectedRoute>
             <OpponentIntelligencePage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P13 - Tactical Planning Workspace
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/strategy"
+        element={
+          <ProtectedRoute>
+            <StrategyPlansPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/organizations/:organizationId/strategy/:planId"
+        element={
+          <ProtectedRoute>
+            <TacticalWorkspacePage />
           </ProtectedRoute>
         }
       />
