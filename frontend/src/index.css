@@ -8613,3 +8613,406 @@ button.run-button.active {
     grid-column: 2;
   }
 }
+
+/* ========================================================================
+   P14 — PREDICTIVE ANALYTICS
+   Leakage-controlled coaching predictions. Not for gambling.
+   ======================================================================== */
+
+.module-links .predictive-analytics-module-link {
+  color: #fff;
+  background: linear-gradient(135deg, #172554, #1d4ed8 55%, var(--orange-600));
+  border-color: #1d4ed8;
+}
+
+.module-links .predictive-analytics-module-link strong,
+.module-links .predictive-analytics-module-link span {
+  color: #fff;
+}
+
+.module-links .predictive-analytics-module-link:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #1e3a8a, #2563eb 55%, var(--orange-500));
+}
+
+.predictive-safety-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  color: #7c2d12;
+  background: linear-gradient(120deg, #fff7ed, #fff);
+  border: 1px solid #fed7aa;
+  border-left: 5px solid var(--orange-600);
+  border-radius: 12px;
+}
+
+.predictive-safety-banner > svg {
+  flex: 0 0 auto;
+  margin-top: 0.05rem;
+  color: var(--orange-700);
+}
+
+.predictive-safety-banner > div {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.predictive-safety-banner strong {
+  color: #9a3412;
+  font-size: 0.78rem;
+}
+
+.predictive-safety-banner span {
+  color: #9a3412;
+  font-size: 0.69rem;
+  line-height: 1.45;
+}
+
+.predictive-readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.predictive-readiness-grid article {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0.9rem;
+  background: #fff;
+  border: 1px solid var(--ci-border, var(--slate-200));
+  border-top: 4px solid #2563eb;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+.predictive-readiness-grid strong {
+  color: var(--slate-900);
+  font-size: 1.2rem;
+}
+
+.predictive-readiness-grid span {
+  color: var(--slate-500);
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+.predictive-problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.7rem;
+}
+
+.predictive-problem-grid article {
+  display: grid;
+  gap: 0.55rem;
+  min-width: 0;
+  padding: 0.8rem;
+  background: #fbfcfe;
+  border: 1px solid var(--slate-200);
+  border-left: 4px solid var(--slate-400);
+  border-radius: 10px;
+}
+
+.predictive-problem-grid article.ready {
+  border-left-color: #16a34a;
+  background: #f7fff9;
+}
+
+.predictive-problem-grid article.blocked {
+  border-left-color: #dc2626;
+  background: #fffafa;
+}
+
+.predictive-problem-grid article > div {
+  display: grid;
+  gap: 0.13rem;
+}
+
+.predictive-problem-grid article > div span {
+  color: var(--slate-400);
+  font-size: 0.56rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.predictive-problem-grid article.ready > div span {
+  color: #15803d;
+}
+
+.predictive-problem-grid article.blocked > div span {
+  color: #b91c1c;
+}
+
+.predictive-problem-grid strong {
+  color: var(--slate-900);
+  font-size: 0.75rem;
+}
+
+.predictive-problem-grid p {
+  margin: 0;
+  color: var(--slate-600);
+  font-size: 0.66rem;
+  line-height: 1.45;
+}
+
+.predictive-problem-grid small {
+  color: var(--slate-400);
+  font-size: 0.58rem;
+}
+
+.predictive-workbench {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.62fr) minmax(0, 1.38fr);
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.predictive-form-panel,
+.predictive-result-panel {
+  min-width: 0;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid var(--ci-border, var(--slate-200));
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+}
+
+.predictive-form-panel {
+  align-self: start;
+}
+
+.predictive-form-warning {
+  margin: 0.6rem 0 0;
+  padding: 0.55rem 0.65rem;
+  color: #991b1b;
+  background: #fff7f7;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  font-size: 0.62rem;
+  line-height: 1.4;
+}
+
+.predictive-empty-result {
+  display: grid;
+  place-items: center;
+  gap: 0.45rem;
+  min-height: 360px;
+  padding: 1.5rem;
+  color: var(--slate-500);
+  text-align: center;
+  background: #f8fafc;
+  border: 1px dashed var(--slate-300);
+  border-radius: 11px;
+}
+
+.predictive-empty-result svg {
+  color: #2563eb;
+}
+
+.predictive-empty-result strong {
+  color: var(--slate-800);
+  font-size: 0.8rem;
+}
+
+.predictive-empty-result span {
+  max-width: 420px;
+  font-size: 0.66rem;
+  line-height: 1.45;
+}
+
+.predictive-result-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  padding: 0.85rem;
+  background: linear-gradient(120deg, #eff6ff, #fff);
+  border: 1px solid #bfdbfe;
+  border-radius: 11px;
+}
+
+.predictive-result-head > div {
+  display: grid;
+  gap: 0.14rem;
+}
+
+.predictive-result-head > div > span {
+  color: #1d4ed8;
+  font-size: 0.61rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.predictive-result-head > div > strong {
+  color: #172554;
+  font-size: clamp(1.65rem, 4vw, 2.7rem);
+  line-height: 1;
+}
+
+.predictive-result-head small {
+  color: var(--slate-500);
+  font-size: 0.64rem;
+}
+
+.predictive-confidence {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  padding: 0.3rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.6rem;
+  font-weight: 850;
+  text-transform: capitalize;
+}
+
+.predictive-confidence.low {
+  color: #991b1b;
+  background: #fff7f7;
+  border: 1px solid #fecaca;
+}
+
+.predictive-confidence.moderate {
+  color: #92400e;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+}
+
+.predictive-confidence.higher {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.predictive-chart-box {
+  width: 100%;
+  min-height: 240px;
+  overflow: hidden;
+  padding: 0.45rem;
+  background: #fbfcfe;
+  border: 1px solid var(--slate-100);
+  border-radius: 10px;
+}
+
+.predictive-result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.65rem 0;
+}
+
+.predictive-result-meta span {
+  padding: 0.3rem 0.48rem;
+  color: var(--slate-500);
+  background: #f8fafc;
+  border: 1px solid var(--slate-200);
+  border-radius: 999px;
+  font-size: 0.58rem;
+  font-weight: 750;
+}
+
+.predictive-explainability {
+  margin-top: 0.8rem;
+}
+
+.predictive-explainability h3 {
+  margin: 0;
+  color: var(--slate-900);
+  font-size: 0.82rem;
+}
+
+.predictive-explainability > p {
+  margin: 0.2rem 0 0.55rem;
+  color: var(--slate-500);
+  font-size: 0.62rem;
+}
+
+.predictive-explainability > div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.predictive-explainability article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.48rem 0.6rem;
+  background: #f8fafc;
+  border: 1px solid var(--slate-100);
+  border-radius: 7px;
+}
+
+.predictive-explainability article span {
+  overflow: hidden;
+  color: var(--slate-600);
+  font-size: 0.61rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.predictive-explainability article strong {
+  color: #1d4ed8;
+  font-size: 0.62rem;
+}
+
+.predictive-trend {
+  display: inline-flex;
+  padding: 0.32rem 0.52rem;
+  border-radius: 999px;
+  font-size: 0.61rem;
+  font-weight: 850;
+  text-transform: capitalize;
+}
+
+.predictive-trend.improving {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.predictive-trend.declining {
+  color: #991b1b;
+  background: #fff7f7;
+  border: 1px solid #fecaca;
+}
+
+.predictive-trend.stable,
+.predictive-trend.insufficient_data {
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+}
+
+.predictive-trend-note {
+  margin: 0.65rem 0 0;
+  color: var(--slate-500);
+  font-size: 0.66rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 1050px) {
+  .predictive-workbench {
+    grid-template-columns: 1fr;
+  }
+
+  .predictive-readiness-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .predictive-readiness-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .predictive-result-head {
+    flex-direction: column;
+  }
+}

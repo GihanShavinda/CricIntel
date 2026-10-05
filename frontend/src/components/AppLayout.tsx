@@ -56,6 +56,7 @@ const routeLabels: Record<string, string> = {
   training: 'Training',
   scouting: 'Scouting',
   strategy: 'Tactical Strategy',
+  predictive: 'Predictive Analytics',
   'opponent-intelligence': 'Opponent Intelligence',
   admin: 'Administration',
   squad: 'Squad',
@@ -328,6 +329,13 @@ export function AppLayout({
                 to: `/organizations/${organizationId}/strategy`,
                 icon: 'strategy',
               },
+              {
+                label: 'Predictive Analytics',
+                description:
+                  'Leakage-controlled coaching predictions',
+                to: `/organizations/${organizationId}/predictive`,
+                icon: 'analytics',
+              },
             ],
           },
           {
@@ -587,7 +595,7 @@ export function AppLayout({
             </strong>
 
             <small>
-              P1–P13 operational
+              P1–P14 operational
             </small>
           </div>
         </div>

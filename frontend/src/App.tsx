@@ -21,6 +21,7 @@ import { PlayerComparisonPage } from "./pages/PlayerComparisonPage";
 import { PlayerCreatePage } from "./pages/PlayerCreatePage";
 import { PlayerEditPage } from "./pages/PlayerEditPage";
 import { PlayerProfilePage } from "./pages/PlayerProfilePage";
+import { PredictiveAnalyticsPage } from "./pages/PredictiveAnalyticsPage";
 import { PlayersPage } from "./pages/PlayersPage";
 import { PlayingXiPage } from "./pages/PlayingXiPage";
 import { RegisterPage } from "./pages/RegisterPage";
@@ -359,6 +360,21 @@ export default function App() {
         element={
           <ProtectedRoute>
             <TacticalWorkspacePage />
+          </ProtectedRoute>
+        }
+      />
+
+            {/*
+      |--------------------------------------------------------------------------
+      | P14 - Predictive Analytics
+      |--------------------------------------------------------------------------
+      */}
+
+      <Route
+        path="/organizations/:organizationId/predictive"
+        element={
+          <ProtectedRoute>
+            <PredictiveAnalyticsPage />
           </ProtectedRoute>
         }
       />

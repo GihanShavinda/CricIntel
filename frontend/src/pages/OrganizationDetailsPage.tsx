@@ -207,7 +207,7 @@ export function OrganizationDetailsPage() {
               live scoring, analytics,
               training, player development,
               scouting, recruitment, and
-              opponent intelligence, and tactical planning.
+              opponent intelligence, tactical planning, and predictive analytics.
             </p>
           </div>
         </div>
@@ -307,6 +307,17 @@ export function OrganizationDetailsPage() {
             <span>
               Match planning, collaboration,
               mentions, assignments and audit history
+            </span>
+          </Link>
+
+          <Link
+            className="predictive-analytics-module-link"
+            to={`/organizations/${id}/predictive`}
+          >
+            <strong>Predictive Analytics</strong>
+            <span>
+              Leakage-controlled coaching forecasts,
+              uncertainty and explainability
             </span>
           </Link>
 

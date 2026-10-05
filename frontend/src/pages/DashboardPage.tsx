@@ -128,6 +128,13 @@ const capabilities: Capability[] = [
       'Collaborative match strategy, discussions, mentions and audit history.',
     icon: 'strategy',
   },
+  {
+    milestone: 'P14',
+    title: 'Predictive Analytics',
+    description:
+      'Leakage-controlled score, economy and team-total predictions with uncertainty.',
+    icon: 'analytics',
+  },
 ];
 
 export function DashboardPage() {
@@ -291,6 +298,14 @@ export function DashboardPage() {
             to: `/organizations/${id}/strategy`,
             icon: 'strategy',
             accent: 'orange',
+          },
+          {
+            title: 'Predictive Analytics',
+            description:
+              'Review leakage-controlled forecasts, uncertainty and form trends.',
+            to: `/organizations/${id}/predictive`,
+            icon: 'analytics',
+            accent: 'blue',
           },
         );
       }
@@ -498,7 +513,7 @@ export function DashboardPage() {
 
           <div>
             <strong>
-              13
+              14
             </strong>
 
             <span>
@@ -507,7 +522,7 @@ export function DashboardPage() {
           </div>
 
           <small>
-            P1 through P13
+            P1 through P14
           </small>
         </article>
 
@@ -828,7 +843,7 @@ export function DashboardPage() {
             </p>
 
             <h2>
-              CricIntel P1–P13
+              CricIntel P1–P14
             </h2>
 
             <span>
@@ -840,7 +855,7 @@ export function DashboardPage() {
           </div>
 
           <span className="dashboard-completion-badge">
-            13 / 13 operational
+            14 / 14 operational
           </span>
         </div>
 

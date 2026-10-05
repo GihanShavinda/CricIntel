@@ -9,6 +9,8 @@ import App from './App';
 import { AuthProvider } from './auth/AuthContext';
 import { queryClient } from './queryClient';
 
+// The CSS file is handled by the bundler and has no TypeScript declarations.
+// @ts-expect-error TS cannot resolve side-effect CSS imports in this setup.
 import './index.css';
 
 createRoot(

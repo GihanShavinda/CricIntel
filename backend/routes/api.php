@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\LiveMatchController;
 use App\Http\Controllers\Api\V1\MatchController;
 use App\Http\Controllers\Api\V1\OrganizationController;
 use App\Http\Controllers\Api\V1\OpponentAnalyticsController;
+use App\Http\Controllers\Api\V1\PredictiveAnalyticsController;
 use App\Http\Controllers\Api\V1\PlayerController;
 use App\Http\Controllers\Api\V1\SeasonController;
 use App\Http\Controllers\Api\V1\ScoutingController;
@@ -696,6 +697,53 @@ Route::prefix('v1')->group(function () {
         Route::post(
             '/organizations/{organization}/strategy/plans/{strategyPlan}/mentions/{mention}/read',
             [StrategyCollaborationController::class, 'markMentionRead']
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P14 - Predictive Analytics
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/organizations/{organization}/predictive/options',
+            [PredictiveAnalyticsController::class, 'options']
+        );
+
+        Route::get(
+            '/organizations/{organization}/predictive/readiness',
+            [PredictiveAnalyticsController::class, 'readiness']
+        );
+
+        Route::post(
+            '/organizations/{organization}/predictive/train',
+            [PredictiveAnalyticsController::class, 'train']
+        );
+
+        Route::get(
+            '/organizations/{organization}/predictive/models/{modelKind}',
+            [PredictiveAnalyticsController::class, 'versions']
+        );
+
+        Route::post(
+            '/organizations/{organization}/predictive/batters/{player}/score',
+            [PredictiveAnalyticsController::class, 'batterScore']
+        );
+
+        Route::post(
+            '/organizations/{organization}/predictive/bowlers/{player}/economy',
+            [PredictiveAnalyticsController::class, 'bowlerEconomy']
+        );
+
+        Route::post(
+            '/organizations/{organization}/predictive/teams/{team}/total',
+            [PredictiveAnalyticsController::class, 'teamTotal']
+        );
+
+        Route::get(
+            '/organizations/{organization}/predictive/players/{player}/form',
+            [PredictiveAnalyticsController::class, 'playerForm']
         );
     });
 
