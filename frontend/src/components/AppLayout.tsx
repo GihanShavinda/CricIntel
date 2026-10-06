@@ -58,6 +58,7 @@ const routeLabels: Record<string, string> = {
   strategy: 'Tactical Strategy',
   predictive: 'Predictive Analytics',
   'strategy-assistant': 'AI Strategy Assistant',
+  'nl-analytics': 'Natural-Language Analytics',
   'opponent-intelligence': 'Opponent Intelligence',
   admin: 'Administration',
   squad: 'Squad',
@@ -344,6 +345,13 @@ export function AppLayout({
                 to: `/organizations/${organizationId}/strategy-assistant`,
                 icon: 'strategy',
               },
+              {
+                label: 'Natural-Language Analytics',
+                description:
+                  'Controlled cricket analytics from natural-language requests',
+                to: `/organizations/${organizationId}/nl-analytics`,
+                icon: 'analytics',
+              },
             ],
           },
           {
@@ -603,7 +611,7 @@ export function AppLayout({
             </strong>
 
             <small>
-              P1–P15 operational
+              P1–P16 operational
             </small>
           </div>
         </div>

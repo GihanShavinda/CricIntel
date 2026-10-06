@@ -142,6 +142,13 @@ const capabilities: Capability[] = [
       'Evidence-grounded tactical explanations with provenance and hallucination validation.',
     icon: 'strategy',
   },
+  {
+    milestone: 'P16',
+    title: 'Natural-Language Analytics',
+    description:
+      'Controlled analytics intents, validated filters and automatic cricket visualizations.',
+    icon: 'analytics',
+  },
 ];
 
 export function DashboardPage() {
@@ -520,7 +527,7 @@ export function DashboardPage() {
 
           <div>
             <strong>
-              15
+              16
             </strong>
 
             <span>
@@ -529,7 +536,7 @@ export function DashboardPage() {
           </div>
 
           <small>
-            P1 through P15
+            P1 through P16
           </small>
         </article>
 
@@ -850,7 +857,7 @@ export function DashboardPage() {
             </p>
 
             <h2>
-              CricIntel P1–P15
+              CricIntel P1–P16
             </h2>
 
             <span>
@@ -862,7 +869,7 @@ export function DashboardPage() {
           </div>
 
           <span className="dashboard-completion-badge">
-            15 / 15 operational
+            16 / 16 operational
           </span>
         </div>
 

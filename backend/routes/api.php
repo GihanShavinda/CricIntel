@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\V1\ScoutingController;
 use App\Http\Controllers\Api\V1\StrategyPlanController;
 use App\Http\Controllers\Api\V1\StrategyCollaborationController;
 use App\Http\Controllers\Api\V1\StrategyAiController;
+use App\Http\Controllers\Api\V1\NaturalLanguageAnalyticsController;
 use App\Http\Controllers\Api\V1\SelectionController;
 use App\Http\Controllers\Api\V1\StatisticsController;
 use App\Http\Controllers\Api\V1\TeamController;
@@ -777,6 +778,38 @@ Route::prefix('v1')->group(function () {
         Route::get(
             '/organizations/{organization}/strategy-assistant/history',
             [StrategyAiController::class, 'history']
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P16 - Natural-Language Analytics
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/organizations/{organization}/nl-analytics/options',
+            [NaturalLanguageAnalyticsController::class, 'options']
+        );
+
+        Route::post(
+            '/organizations/{organization}/nl-analytics/parse',
+            [NaturalLanguageAnalyticsController::class, 'parse']
+        );
+
+        Route::post(
+            '/organizations/{organization}/nl-analytics/query',
+            [NaturalLanguageAnalyticsController::class, 'run']
+        );
+
+        Route::get(
+            '/organizations/{organization}/nl-analytics/history',
+            [NaturalLanguageAnalyticsController::class, 'history']
+        );
+
+        Route::get(
+            '/organizations/{organization}/nl-analytics/history/{nlAnalyticsQuery}',
+            [NaturalLanguageAnalyticsController::class, 'showHistory']
         );
     });
 

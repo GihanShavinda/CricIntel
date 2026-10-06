@@ -33,6 +33,7 @@ import { ScoutingReportPage } from "./pages/ScoutingReportPage";
 import { StrategyPlansPage } from "./pages/StrategyPlansPage";
 import { TacticalWorkspacePage } from "./pages/TacticalWorkspacePage";
 import { StrategyAssistantPage } from "./pages/StrategyAssistantPage";
+import { NaturalLanguageAnalyticsPage } from "./pages/NaturalLanguageAnalyticsPage";
 
 import { TeamsPage } from "./pages/TeamsPage";
 import { TrainingCalendarPage } from "./pages/TrainingCalendarPage";
@@ -389,6 +390,20 @@ export default function App() {
         element={
           <ProtectedRoute>
             <StrategyAssistantPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P16 - Natural-Language Analytics
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/nl-analytics"
+        element={
+          <ProtectedRoute>
+            <NaturalLanguageAnalyticsPage />
           </ProtectedRoute>
         }
       />

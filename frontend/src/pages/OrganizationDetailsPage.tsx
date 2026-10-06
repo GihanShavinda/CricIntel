@@ -207,7 +207,7 @@ export function OrganizationDetailsPage() {
               live scoring, analytics,
               training, player development,
               scouting, recruitment, and
-              opponent intelligence, tactical planning, and predictive analytics, and grounded AI strategy assistance.
+              opponent intelligence, tactical planning, and predictive analytics, grounded AI strategy assistance, and natural-language analytics.
             </p>
           </div>
         </div>
@@ -329,6 +329,17 @@ export function OrganizationDetailsPage() {
             <span>
               Grounded tactical explanations,
               provenance and hallucination validation
+            </span>
+          </Link>
+
+          <Link
+            className="nl-analytics-module-link"
+            to={`/organizations/${id}/nl-analytics`}
+          >
+            <strong>Natural-Language Analytics</strong>
+            <span>
+              Controlled intent parsing, validated filters,
+              structured analytics and automatic charts
             </span>
           </Link>
 
