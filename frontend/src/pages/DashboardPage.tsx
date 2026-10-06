@@ -156,6 +156,13 @@ const capabilities: Capability[] = [
       'Queued database, email and real-time notifications with per-user preferences.',
     icon: 'bell',
   },
+  {
+    milestone: 'P18',
+    title: 'Professional Reporting',
+    description:
+      'Reusable PDF, Excel and CSV reports with queued heavy exports and stored history.',
+    icon: 'reports',
+  },
 ];
 
 export function DashboardPage() {
@@ -542,7 +549,7 @@ export function DashboardPage() {
 
           <div>
             <strong>
-              17
+              18
             </strong>
 
             <span>
@@ -551,7 +558,7 @@ export function DashboardPage() {
           </div>
 
           <small>
-            P1 through P17
+            P1 through P18
           </small>
         </article>
 
@@ -872,7 +879,7 @@ export function DashboardPage() {
             </p>
 
             <h2>
-              CricIntel P1–P17
+              CricIntel P1–P18
             </h2>
 
             <span>
@@ -884,7 +891,7 @@ export function DashboardPage() {
           </div>
 
           <span className="dashboard-completion-badge">
-            17 / 17 operational
+            18 / 18 operational
           </span>
         </div>
 

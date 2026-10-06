@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\V1\StrategyCollaborationController;
 use App\Http\Controllers\Api\V1\StrategyAiController;
 use App\Http\Controllers\Api\V1\NaturalLanguageAnalyticsController;
 use App\Http\Controllers\Api\V1\NotificationController;
+use App\Http\Controllers\Api\V1\ReportController;
 use App\Http\Controllers\Api\V1\SelectionController;
 use App\Http\Controllers\Api\V1\StatisticsController;
 use App\Http\Controllers\Api\V1\TeamController;
@@ -812,6 +813,64 @@ Route::prefix('v1')->group(function () {
             '/organizations/{organization}/nl-analytics/history/{nlAnalyticsQuery}',
             [NaturalLanguageAnalyticsController::class, 'showHistory']
         );
+
+        /*
+        |--------------------------------------------------------------------------
+        | P17 - Notifications
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+        Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead']);
+        Route::post('/notifications/{notification}/unread', [NotificationController::class, 'markUnread']);
+        Route::post('/notifications/read-all', [NotificationController::class, 'markAllRead']);
+        Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy']);
+        Route::get('/notification-preferences', [NotificationController::class, 'preferences']);
+        Route::put('/notification-preferences', [NotificationController::class, 'updatePreferences']);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P18 - Professional Reporting
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/organizations/{organization}/reports/options',
+            [ReportController::class, 'options']
+        );
+
+        Route::post(
+            '/organizations/{organization}/reports/preview',
+            [ReportController::class, 'preview']
+        );
+
+        Route::post(
+            '/organizations/{organization}/reports/exports',
+            [ReportController::class, 'generate']
+        );
+
+        Route::get(
+            '/organizations/{organization}/reports/exports',
+            [ReportController::class, 'history']
+        );
+
+        Route::get(
+            '/organizations/{organization}/reports/exports/{reportExport}',
+            [ReportController::class, 'show']
+        );
+
+        Route::get(
+            '/organizations/{organization}/reports/exports/{reportExport}/download',
+            [ReportController::class, 'download']
+        );
+
+        Route::delete(
+            '/organizations/{organization}/reports/exports/{reportExport}',
+            [ReportController::class, 'destroy']
+        );
+
     });
 
     /*
@@ -829,51 +888,7 @@ Route::prefix('v1')->group(function () {
         );
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | P17 - Notifications
-        |--------------------------------------------------------------------------
-        */
 
-        Route::get(
-            '/notifications',
-            [NotificationController::class, 'index']
-        );
-
-        Route::get(
-            '/notifications/unread-count',
-            [NotificationController::class, 'unreadCount']
-        );
-
-        Route::post(
-            '/notifications/{notification}/read',
-            [NotificationController::class, 'markRead']
-        );
-
-        Route::post(
-            '/notifications/{notification}/unread',
-            [NotificationController::class, 'markUnread']
-        );
-
-        Route::post(
-            '/notifications/read-all',
-            [NotificationController::class, 'markAllRead']
-        );
-
-        Route::delete(
-            '/notifications/{notification}',
-            [NotificationController::class, 'destroy']
-        );
-
-        Route::get(
-            '/notification-preferences',
-            [NotificationController::class, 'preferences']
-        );
-
-        Route::put(
-            '/notification-preferences',
-            [NotificationController::class, 'updatePreferences']
-        );
 
     });
 });

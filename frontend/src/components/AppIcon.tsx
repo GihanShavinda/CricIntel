@@ -20,6 +20,7 @@ export type AppIconName =
   | 'menu'
   | 'organization'
   | 'players'
+  | 'reports'
   | 'plus'
   | 'scouting'
   | 'search'
@@ -161,6 +162,14 @@ const paths: Record<AppIconName, ReactNode> = {
       <path d="M5 8h3l8 8h3" />
       <path d="M5 16h3l8-8h3" />
       <path d="M3 6v4M21 6v4M3 14v4M21 14v4" />
+    </>
+  ),
+
+  reports: (
+    <>
+      <path d="M6 3h9l3 3v15H6z" />
+      <path d="M15 3v4h4" />
+      <path d="M9 11h6M9 15h6M9 19h4" />
     </>
   ),
 

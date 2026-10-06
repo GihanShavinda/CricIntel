@@ -36,6 +36,7 @@ import { StrategyAssistantPage } from "./pages/StrategyAssistantPage";
 import { NaturalLanguageAnalyticsPage } from "./pages/NaturalLanguageAnalyticsPage";
 import { NotificationsPage } from "./pages/NotificationsPage";
 import { NotificationPreferencesPage } from "./pages/NotificationPreferencesPage";
+import { ReportsPage } from "./pages/ReportsPage";
 
 import { TeamsPage } from "./pages/TeamsPage";
 import { TrainingCalendarPage } from "./pages/TrainingCalendarPage";
@@ -406,6 +407,21 @@ export default function App() {
         element={
           <ProtectedRoute>
             <NaturalLanguageAnalyticsPage />
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P18 - Professional Reporting
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/reports"
+        element={
+          <ProtectedRoute>
+            <ReportsPage />
           </ProtectedRoute>
         }
       />

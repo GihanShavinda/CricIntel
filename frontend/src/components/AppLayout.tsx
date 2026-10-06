@@ -358,6 +358,13 @@ export function AppLayout({
                 to: `/organizations/${organizationId}/nl-analytics`,
                 icon: 'analytics',
               },
+              {
+                label: 'Reports',
+                description:
+                  'Professional PDF, Excel and CSV reporting',
+                to: `/organizations/${organizationId}/reports`,
+                icon: 'reports',
+              },
             ],
           },
           {
@@ -617,7 +624,7 @@ export function AppLayout({
             </strong>
 
             <small>
-              P1–P17 operational
+              P1–P18 operational
             </small>
           </div>
         </div>
