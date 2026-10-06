@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Query
 
 from .config import settings
+from .assistant import StrategyAssistantService
 from .dataset_builder import TrainingDatasetBuilder
 from .model_registry import ModelRegistry
 from .prediction import PredictionService
@@ -9,16 +10,17 @@ from .schemas import (
     BowlerPredictionRequest,
     TeamTotalPredictionRequest,
     TrainRequest,
+    StrategyAssistantRequest,
 )
 from .training import ModelTrainer
 
 
 app = FastAPI(
     title=settings.app_name,
-    version="14.0.0",
+    version="15.0.0",
     description=(
-        "Local CricIntel predictive analytics service. Coaching support only; "
-        "not for gambling and not guaranteed outcomes."
+        "Local CricIntel intelligence service for P14 predictive analytics and "
+        "P15 grounded strategy assistance."
     ),
 )
 
@@ -26,6 +28,7 @@ builder = TrainingDatasetBuilder()
 registry = ModelRegistry()
 trainer = ModelTrainer(builder=builder, registry=registry)
 predictor = PredictionService(builder=builder, registry=registry)
+assistant = StrategyAssistantService()
 
 
 @app.get("/health")
@@ -33,8 +36,10 @@ def health() -> dict:
     return {
         "status": "ok",
         "service": settings.app_name,
-        "version": "14.0.0",
-        "llm_enabled": False,
+        "version": "15.0.0",
+        "llm_enabled": settings.strategy_assistant_enabled,
+        "strategy_assistant_enabled": settings.strategy_assistant_enabled,
+        "llm_provider": settings.llm_provider,
         "gambling_use": False,
     }
 
@@ -133,3 +138,29 @@ def player_form(organization_id: int, player_id: int) -> dict:
         return predictor.player_form_trend(organization_id, player_id)
     except Exception as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+
+@app.post("/v1/strategy-assistant/ask")
+async def strategy_assistant_ask(
+    request: StrategyAssistantRequest,
+) -> dict:
+    try:
+        return await assistant.ask(
+            question=request.question,
+            context=request.context,
+            deterministic_recommendations=request.deterministic_recommendations,
+            rules=request.rules,
+        )
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=503
+            if "disabled" in str(exc).lower()
+            or "kill switch" in str(exc).lower()
+            else 502,
+            detail=str(exc),
+        ) from exc
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=str(exc),
+        ) from exc

@@ -57,6 +57,7 @@ const routeLabels: Record<string, string> = {
   scouting: 'Scouting',
   strategy: 'Tactical Strategy',
   predictive: 'Predictive Analytics',
+  'strategy-assistant': 'AI Strategy Assistant',
   'opponent-intelligence': 'Opponent Intelligence',
   admin: 'Administration',
   squad: 'Squad',
@@ -336,6 +337,13 @@ export function AppLayout({
                 to: `/organizations/${organizationId}/predictive`,
                 icon: 'analytics',
               },
+              {
+                label: 'AI Strategy Assistant',
+                description:
+                  'Grounded tactical explanations over CricIntel evidence',
+                to: `/organizations/${organizationId}/strategy-assistant`,
+                icon: 'strategy',
+              },
             ],
           },
           {
@@ -595,7 +603,7 @@ export function AppLayout({
             </strong>
 
             <small>
-              P1–P14 operational
+              P1–P15 operational
             </small>
           </div>
         </div>

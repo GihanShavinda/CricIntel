@@ -207,7 +207,7 @@ export function OrganizationDetailsPage() {
               live scoring, analytics,
               training, player development,
               scouting, recruitment, and
-              opponent intelligence, tactical planning, and predictive analytics.
+              opponent intelligence, tactical planning, and predictive analytics, and grounded AI strategy assistance.
             </p>
           </div>
         </div>
@@ -318,6 +318,17 @@ export function OrganizationDetailsPage() {
             <span>
               Leakage-controlled coaching forecasts,
               uncertainty and explainability
+            </span>
+          </Link>
+
+          <Link
+            className="strategy-assistant-module-link"
+            to={`/organizations/${id}/strategy-assistant`}
+          >
+            <strong>AI Strategy Assistant</strong>
+            <span>
+              Grounded tactical explanations,
+              provenance and hallucination validation
             </span>
           </Link>
 

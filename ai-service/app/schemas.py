@@ -67,3 +67,32 @@ class PredictionResponse(BaseModel):
         "Predictive coaching support only. This is not a guaranteed outcome "
         "and is not intended for gambling or wagering decisions."
     )
+
+
+class StrategyAssistantRequest(BaseModel):
+    question: str = Field(min_length=3, max_length=1200)
+    context: dict
+    deterministic_recommendations: list[dict] = []
+    rules: list[str] = []
+
+
+class StrategyAssistantEvidenceItem(BaseModel):
+    id: str
+    metric: str
+    value: object | None = None
+    unit: str | None = None
+    sample_size: int | float | None = None
+    entity: dict = {}
+    source: dict = {}
+
+
+class StrategyAssistantClaim(BaseModel):
+    statement: str
+    evidence_ids: list[str]
+    confidence: Literal["high", "moderate", "low"] = "low"
+
+
+class StrategyAssistantStructuredResponse(BaseModel):
+    claims: list[StrategyAssistantClaim] = []
+    recommendations: list[StrategyAssistantClaim] = []
+    limitations: list[str] = []

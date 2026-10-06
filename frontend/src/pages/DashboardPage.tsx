@@ -135,6 +135,13 @@ const capabilities: Capability[] = [
       'Leakage-controlled score, economy and team-total predictions with uncertainty.',
     icon: 'analytics',
   },
+  {
+    milestone: 'P15',
+    title: 'AI Strategy Assistant',
+    description:
+      'Evidence-grounded tactical explanations with provenance and hallucination validation.',
+    icon: 'strategy',
+  },
 ];
 
 export function DashboardPage() {
@@ -513,7 +520,7 @@ export function DashboardPage() {
 
           <div>
             <strong>
-              14
+              15
             </strong>
 
             <span>
@@ -522,7 +529,7 @@ export function DashboardPage() {
           </div>
 
           <small>
-            P1 through P14
+            P1 through P15
           </small>
         </article>
 
@@ -843,7 +850,7 @@ export function DashboardPage() {
             </p>
 
             <h2>
-              CricIntel P1–P14
+              CricIntel P1–P15
             </h2>
 
             <span>
@@ -855,7 +862,7 @@ export function DashboardPage() {
           </div>
 
           <span className="dashboard-completion-badge">
-            14 / 14 operational
+            15 / 15 operational
           </span>
         </div>
 

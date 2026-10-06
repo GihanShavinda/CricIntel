@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\V1\SeasonController;
 use App\Http\Controllers\Api\V1\ScoutingController;
 use App\Http\Controllers\Api\V1\StrategyPlanController;
 use App\Http\Controllers\Api\V1\StrategyCollaborationController;
+use App\Http\Controllers\Api\V1\StrategyAiController;
 use App\Http\Controllers\Api\V1\SelectionController;
 use App\Http\Controllers\Api\V1\StatisticsController;
 use App\Http\Controllers\Api\V1\TeamController;
@@ -744,6 +745,38 @@ Route::prefix('v1')->group(function () {
         Route::get(
             '/organizations/{organization}/predictive/players/{player}/form',
             [PredictiveAnalyticsController::class, 'playerForm']
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P15 - AI Strategy Assistant
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/organizations/{organization}/strategy-assistant/status',
+            [StrategyAiController::class, 'status']
+        );
+
+        Route::get(
+            '/organizations/{organization}/strategy-assistant/options',
+            [StrategyAiController::class, 'options']
+        );
+
+        Route::get(
+            '/organizations/{organization}/strategy-assistant/matches/{match}/context',
+            [StrategyAiController::class, 'context']
+        );
+
+        Route::post(
+            '/organizations/{organization}/strategy-assistant/matches/{match}/ask',
+            [StrategyAiController::class, 'ask']
+        );
+
+        Route::get(
+            '/organizations/{organization}/strategy-assistant/history',
+            [StrategyAiController::class, 'history']
         );
     });
 

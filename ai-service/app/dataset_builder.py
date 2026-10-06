@@ -77,9 +77,7 @@ class TrainingDatasetBuilder:
         frame["scheduled_at"] = pd.to_datetime(frame["scheduled_at"], utc=True)
         frame = build_batter_features(frame)
         if not frame.empty:
-            frame = frame[
-                frame["career_prior_innings"] >= 2
-            ].copy()
+            frame = frame[frame["career_prior_innings"] >= 2].copy()
 
         return DatasetSpec(
             frame=frame,
@@ -160,9 +158,7 @@ class TrainingDatasetBuilder:
         frame["scheduled_at"] = pd.to_datetime(frame["scheduled_at"], utc=True)
         frame = build_bowler_features(frame)
         if not frame.empty:
-            frame = frame[
-                frame["career_prior_innings"] >= 2
-            ].copy()
+            frame = frame[frame["career_prior_innings"] >= 2].copy()
 
         return DatasetSpec(
             frame=frame,
@@ -204,9 +200,7 @@ class TrainingDatasetBuilder:
         frame["scheduled_at"] = pd.to_datetime(frame["scheduled_at"], utc=True)
         frame = build_team_features(frame)
         if not frame.empty:
-            frame = frame[
-                frame["career_prior_innings"] >= 2
-            ].copy()
+            frame = frame[frame["career_prior_innings"] >= 2].copy()
 
         return DatasetSpec(
             frame=frame,

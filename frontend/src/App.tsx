@@ -18,10 +18,10 @@ import { OrganizationDetailsPage } from "./pages/OrganizationDetailsPage";
 import { OrganizationsPage } from "./pages/OrganizationsPage";
 import { OpponentIntelligencePage } from "./pages/OpponentIntelligencePage";
 import { PlayerComparisonPage } from "./pages/PlayerComparisonPage";
+import { PredictiveAnalyticsPage } from "./pages/PredictiveAnalyticsPage";
 import { PlayerCreatePage } from "./pages/PlayerCreatePage";
 import { PlayerEditPage } from "./pages/PlayerEditPage";
 import { PlayerProfilePage } from "./pages/PlayerProfilePage";
-import { PredictiveAnalyticsPage } from "./pages/PredictiveAnalyticsPage";
 import { PlayersPage } from "./pages/PlayersPage";
 import { PlayingXiPage } from "./pages/PlayingXiPage";
 import { RegisterPage } from "./pages/RegisterPage";
@@ -32,6 +32,7 @@ import { ScoutingProfilePage } from "./pages/ScoutingProfilePage";
 import { ScoutingReportPage } from "./pages/ScoutingReportPage";
 import { StrategyPlansPage } from "./pages/StrategyPlansPage";
 import { TacticalWorkspacePage } from "./pages/TacticalWorkspacePage";
+import { StrategyAssistantPage } from "./pages/StrategyAssistantPage";
 
 import { TeamsPage } from "./pages/TeamsPage";
 import { TrainingCalendarPage } from "./pages/TrainingCalendarPage";
@@ -364,17 +365,30 @@ export default function App() {
         }
       />
 
-            {/*
+      {/*
       |--------------------------------------------------------------------------
       | P14 - Predictive Analytics
       |--------------------------------------------------------------------------
       */}
-
       <Route
         path="/organizations/:organizationId/predictive"
         element={
           <ProtectedRoute>
             <PredictiveAnalyticsPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P15 - AI Strategy Assistant
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/organizations/:organizationId/strategy-assistant"
+        element={
+          <ProtectedRoute>
+            <StrategyAssistantPage />
           </ProtectedRoute>
         }
       />
