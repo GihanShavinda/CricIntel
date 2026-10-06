@@ -8,6 +8,7 @@ export type AppIconName =
   | 'analytics'
   | 'arrowRight'
   | 'building'
+  | 'bell'
   | 'calendar'
   | 'chevronDown'
   | 'chevronLeft'
@@ -54,6 +55,13 @@ const paths: Record<AppIconName, ReactNode> = {
       <path d="M4 21V7l8-4 8 4v14" />
       <path d="M9 21v-5h6v5" />
       <path d="M8 9h.01M12 9h.01M16 9h.01M8 12h.01M12 12h.01M16 12h.01" />
+    </>
+  ),
+
+  bell: (
+    <>
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+      <path d="M10 21h4" />
     </>
   ),
 

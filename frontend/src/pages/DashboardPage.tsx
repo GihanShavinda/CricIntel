@@ -149,6 +149,13 @@ const capabilities: Capability[] = [
       'Controlled analytics intents, validated filters and automatic cricket visualizations.',
     icon: 'analytics',
   },
+  {
+    milestone: 'P17',
+    title: 'Notifications',
+    description:
+      'Queued database, email and real-time notifications with per-user preferences.',
+    icon: 'bell',
+  },
 ];
 
 export function DashboardPage() {
@@ -257,6 +264,14 @@ export function DashboardPage() {
           to: '/organizations',
           icon: 'organization',
           accent: 'orange',
+        },
+        {
+          title: 'Notification Center',
+          description:
+            'Review unread activity and manage notification delivery preferences.',
+          to: '/notifications',
+          icon: 'bell',
+          accent: 'green',
         },
       ];
 
@@ -527,7 +542,7 @@ export function DashboardPage() {
 
           <div>
             <strong>
-              16
+              17
             </strong>
 
             <span>
@@ -536,7 +551,7 @@ export function DashboardPage() {
           </div>
 
           <small>
-            P1 through P16
+            P1 through P17
           </small>
         </article>
 
@@ -857,7 +872,7 @@ export function DashboardPage() {
             </p>
 
             <h2>
-              CricIntel P1–P16
+              CricIntel P1–P17
             </h2>
 
             <span>
@@ -869,7 +884,7 @@ export function DashboardPage() {
           </div>
 
           <span className="dashboard-completion-badge">
-            16 / 16 operational
+            17 / 17 operational
           </span>
         </div>
 

@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\V1\StrategyPlanController;
 use App\Http\Controllers\Api\V1\StrategyCollaborationController;
 use App\Http\Controllers\Api\V1\StrategyAiController;
 use App\Http\Controllers\Api\V1\NaturalLanguageAnalyticsController;
+use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\SelectionController;
 use App\Http\Controllers\Api\V1\StatisticsController;
 use App\Http\Controllers\Api\V1\TeamController;
@@ -826,5 +827,53 @@ Route::prefix('v1')->group(function () {
             '/admin/ping',
             [AdminController::class, 'ping']
         );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | P17 - Notifications
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get(
+            '/notifications',
+            [NotificationController::class, 'index']
+        );
+
+        Route::get(
+            '/notifications/unread-count',
+            [NotificationController::class, 'unreadCount']
+        );
+
+        Route::post(
+            '/notifications/{notification}/read',
+            [NotificationController::class, 'markRead']
+        );
+
+        Route::post(
+            '/notifications/{notification}/unread',
+            [NotificationController::class, 'markUnread']
+        );
+
+        Route::post(
+            '/notifications/read-all',
+            [NotificationController::class, 'markAllRead']
+        );
+
+        Route::delete(
+            '/notifications/{notification}',
+            [NotificationController::class, 'destroy']
+        );
+
+        Route::get(
+            '/notification-preferences',
+            [NotificationController::class, 'preferences']
+        );
+
+        Route::put(
+            '/notification-preferences',
+            [NotificationController::class, 'updatePreferences']
+        );
+
     });
 });

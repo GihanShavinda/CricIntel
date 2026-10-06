@@ -34,6 +34,8 @@ import { StrategyPlansPage } from "./pages/StrategyPlansPage";
 import { TacticalWorkspacePage } from "./pages/TacticalWorkspacePage";
 import { StrategyAssistantPage } from "./pages/StrategyAssistantPage";
 import { NaturalLanguageAnalyticsPage } from "./pages/NaturalLanguageAnalyticsPage";
+import { NotificationsPage } from "./pages/NotificationsPage";
+import { NotificationPreferencesPage } from "./pages/NotificationPreferencesPage";
 
 import { TeamsPage } from "./pages/TeamsPage";
 import { TrainingCalendarPage } from "./pages/TrainingCalendarPage";
@@ -422,6 +424,29 @@ export default function App() {
         element={
           <ProtectedRoute>
             <PlayerComparisonPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/*
+      |--------------------------------------------------------------------------
+      | P17 - Notifications
+      |--------------------------------------------------------------------------
+      */}
+      <Route
+        path="/notifications"
+        element={
+          <ProtectedRoute>
+            <NotificationsPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/notification-preferences"
+        element={
+          <ProtectedRoute>
+            <NotificationPreferencesPage />
           </ProtectedRoute>
         }
       />

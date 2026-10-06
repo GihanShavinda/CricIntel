@@ -23,6 +23,10 @@ import {
   type AppIconName,
 } from './AppIcon';
 
+import {
+  NotificationCenter,
+} from './notifications/NotificationCenter';
+
 type Props = {
   children: ReactNode;
 };
@@ -59,6 +63,8 @@ const routeLabels: Record<string, string> = {
   predictive: 'Predictive Analytics',
   'strategy-assistant': 'AI Strategy Assistant',
   'nl-analytics': 'Natural-Language Analytics',
+  notifications: 'Notifications',
+  'notification-preferences': 'Notification Preferences',
   'opponent-intelligence': 'Opponent Intelligence',
   admin: 'Administration',
   squad: 'Squad',
@@ -611,7 +617,7 @@ export function AppLayout({
             </strong>
 
             <small>
-              P1–P16 operational
+              P1–P17 operational
             </small>
           </div>
         </div>
@@ -821,6 +827,8 @@ export function AppLayout({
                 Quick action
               </span>
             </Link>
+
+            <NotificationCenter />
 
             <div className="ci-topbar-health">
               <span className="ci-status-dot online" />
